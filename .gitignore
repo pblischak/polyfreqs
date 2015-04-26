@@ -6,3 +6,6 @@ inst/doc
 .DS_Store
 genotypes
 *~
+src/*.o
+src/*.so
+src/*.dll
