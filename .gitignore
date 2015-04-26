@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+*.out
+inst/doc
+.DS_Store
+genotypes
+*~

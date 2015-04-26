@@ -1,0 +1,13 @@
+Package: polyfreqs
+Title: Allele frequency estimation for populations of polyploids
+Version: 0.0.0.9000
+Author: Paul Blischak <blischak.4@osu.edu>
+Maintainer: Paul Blischak <blischak.4@osu.edu>
+Description: polyfreqs implements a Gibbs sampler to perform Bayesian inference
+Depends: R (>= 3.1.1)
+License: GPL (>=2)
+LazyData: true
+LinkingTo: Rcpp, RcppArmadillo
+Imports: Rcpp, RcppArmadillo
+Suggests: knitr
+VignetteBuilder: knitr
