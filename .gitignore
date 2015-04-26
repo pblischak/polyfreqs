@@ -9,3 +9,5 @@ genotypes
 src/*.o
 src/*.so
 src/*.dll
+src/*.rds
+src/.Rapp.history
