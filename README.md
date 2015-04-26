@@ -1,7 +1,5 @@
 # **polyfreqs**
 
----------------------------
-
 ## Estimating allele frequencies in populations of polyploids
 
 **polyfreqs** is an R package for the estimation of biallelic SNP frequencies in polyploid taxa. 
