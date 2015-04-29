@@ -11,7 +11,7 @@
 
 **polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/web/packages/Rcpp/index.html) and [**RcppArmadillo**](http://cran.r-project.org/web/packages/RcppArmadillo/index.html). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
 
-```
+```r
 install.packages("Rcpp")
 install.packages("RcppArmadillo")
 ```
@@ -22,7 +22,7 @@ Note that **Rcpp** and **RcppArmadillo** also require the compilation of C++ cod
 
 Installing **polyfreqs** can be done using the [**devtools**](http://cran.r-project.org/web/packages/devtools/index.html) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
 
-```
+```r
 devtools::install_github("pblischak/polyfreqs")
 ```
 
