@@ -13,3 +13,7 @@ sample_p <- function(Tm, Gn, pldy) {
     .Call('polyfreqs_sample_p', PACKAGE = 'polyfreqs', Tm, Gn, pldy)
 }
 
+sim_ref_reads <- function(Tm, Gn, pldy, err) {
+    .Call('polyfreqs_sim_ref_reads', PACKAGE = 'polyfreqs', Tm, Gn, pldy, err)
+}
+

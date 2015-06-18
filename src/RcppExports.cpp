@@ -7,45 +7,75 @@
 using namespace Rcpp;
 
 // csample_integer
-IntegerVector csample_integer(IntegerVector x, int size, bool replace, NumericVector prob);
+IntegerVector csample_integer(IntegerVector x, int size, bool replace, NumericVector prob = NumericVector::create());
 RcppExport SEXP polyfreqs_csample_integer(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP probSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type prob(probSEXP);
-    __result = Rcpp::wrap(csample_integer(x, size, replace, prob));
-    return __result;
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP );
+        Rcpp::traits::input_parameter< int >::type size(sizeSEXP );
+        Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP );
+        Rcpp::traits::input_parameter< NumericVector >::type prob(probSEXP );
+        IntegerVector __result = csample_integer(x, size, replace, prob);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // sample_g
 IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, NumericVector pV, SEXP pldy, SEXP err);
 RcppExport SEXP polyfreqs_sample_g(SEXP TmSEXP, SEXP RmSEXP, SEXP GnSEXP, SEXP pVSEXP, SEXP pldySEXP, SEXP errSEXP) {
 BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type Tm(TmSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type Rm(RmSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type Gn(GnSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type pV(pVSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type pldy(pldySEXP);
-    Rcpp::traits::input_parameter< SEXP >::type err(errSEXP);
-    __result = Rcpp::wrap(sample_g(Tm, Rm, Gn, pV, pldy, err));
-    return __result;
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Tm(TmSEXP );
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Rm(RmSEXP );
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Gn(GnSEXP );
+        Rcpp::traits::input_parameter< NumericVector >::type pV(pVSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type pldy(pldySEXP );
+        Rcpp::traits::input_parameter< SEXP >::type err(errSEXP );
+        IntegerMatrix __result = sample_g(Tm, Rm, Gn, pV, pldy, err);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }
 // sample_p
 NumericVector sample_p(IntegerMatrix Tm, IntegerMatrix Gn, SEXP pldy);
 RcppExport SEXP polyfreqs_sample_p(SEXP TmSEXP, SEXP GnSEXP, SEXP pldySEXP) {
 BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type Tm(TmSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type Gn(GnSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type pldy(pldySEXP);
-    __result = Rcpp::wrap(sample_p(Tm, Gn, pldy));
-    return __result;
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Tm(TmSEXP );
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Gn(GnSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type pldy(pldySEXP );
+        NumericVector __result = sample_p(Tm, Gn, pldy);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
+// sim_ref_reads
+IntegerMatrix sim_ref_reads(IntegerMatrix Tm, IntegerMatrix Gn, SEXP pldy, SEXP err);
+RcppExport SEXP polyfreqs_sim_ref_reads(SEXP TmSEXP, SEXP GnSEXP, SEXP pldySEXP, SEXP errSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Tm(TmSEXP );
+        Rcpp::traits::input_parameter< IntegerMatrix >::type Gn(GnSEXP );
+        Rcpp::traits::input_parameter< SEXP >::type pldy(pldySEXP );
+        Rcpp::traits::input_parameter< SEXP >::type err(errSEXP );
+        IntegerMatrix __result = sim_ref_reads(Tm, Gn, pldy, err);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
 END_RCPP
 }

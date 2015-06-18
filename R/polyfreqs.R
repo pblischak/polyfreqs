@@ -1,6 +1,6 @@
 #' Bayesian estimation of allele frequencies in polyploids
 #'
-#' @description \code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies in a population of polyploids.
+#' @description \code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies in a population of autopolyploids.
 #' @author Paul Blischak
 #' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
 #' @param rM Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.
