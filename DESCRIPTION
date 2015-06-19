@@ -1,9 +1,9 @@
 Package: polyfreqs
-Title: Allele frequency estimation for populations of polyploids
-Version: 0.0.0.9000
+Title: Allele frequency estimation for populations of autopolyploids
+Version: 0.9000
 Author: Paul Blischak <blischak.4@osu.edu>
 Maintainer: Paul Blischak <blischak.4@osu.edu>
-Description: polyfreqs implements a Gibbs sampler to perform Bayesian inference
+Description: polyfreqs implements a Gibbs sampler to perform Bayesian inference of biallelic SNP frequencies in a population of autopolyploids.
 Depends: R (>= 3.1.1)
 License: GPL (>=2)
 LazyData: true

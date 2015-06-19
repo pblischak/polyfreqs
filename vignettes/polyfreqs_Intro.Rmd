@@ -1,5 +1,5 @@
 ---
-title: "polyfreqs: estimating allele frequencies in populations of polyploids"
+title: "polyfreqs: estimating allele frequencies in populations of autopolyploids"
 author: "Paul Blischak"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,7 +9,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of polyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty . The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes: $P(\,p,G|\,R,\epsilon)$.
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data. The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes: $P(\,p,G\,|\,R,\epsilon)$.
 
 ## Dependencies
 
