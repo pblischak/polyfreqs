@@ -17,7 +17,13 @@ sim_reads(pVec, N_ind, coverage, ploidy, error)
 
 \item{error}{The probability of a sequencing error.}
 }
+\value{
+A list of 3 matrices: (1) \code{genos} - a matrix of the simulated genotypes, (2) \code{tot_read_mat} - a matrix of the simulated number of total reads, (3) \code{ref_read_mat} - a matrix of the simulated number of reference reads.
+}
 \description{
-Simulates read counts for under the model of Blischak et al. (2015).
+Simulates genotypes and read counts under the model of Blischak et al. (2015).
+}
+\references{
+Blischak, P. D., L. S. Kubatko and A. D. Wolfe. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}. bioRxiv doi:####.
 }
 
