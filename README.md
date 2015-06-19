@@ -1,13 +1,17 @@
 # **polyfreqs**
 
-## Estimating allele frequencies in populations of polyploids
+## Estimating allele frequencies in populations of autopolyploids
 
 **polyfreqs** is an R package for the estimation of biallelic SNP frequencies in polyploid taxa. 
 
 
 ### Dependencies
 
-**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used). Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions. 
+**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used). 
+Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). 
+MacOSX users will need to install the Xcode Command Line Tools. 
+Linux users will need an up-to-date version of the GNU C Compiler (gcc) and the r-base-dev package.  
+Looking at the requirements for Rcpp is a good place to start too.
 
 **polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/web/packages/Rcpp/index.html) and [**RcppArmadillo**](http://cran.r-project.org/web/packages/RcppArmadillo/index.html). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
 
