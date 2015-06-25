@@ -9,13 +9,13 @@ sim_reads(pVec, N_ind, coverage, ploidy, error)
 \arguments{
 \item{pVec}{A vector of allele frequencies strung together using the concatenate function.}
 
-\item{N_ind}{The number of individuals to simulate}
+\item{N_ind}{The number of individuals to simulate.}
 
-\item{coverage}{The average number of sequenced simulated per individual per locus (Poisson distributed)}
+\item{coverage}{The average number of sequences simulated per individual per locus (Poisson distributed).}
 
 \item{ploidy}{The ploidy level of individuals in the population.}
 
-\item{error}{The probability of a sequencing error.}
+\item{error}{The level of sequencing error. A fixed constant.}
 }
 \value{
 A list of 3 matrices: (1) \code{genos} - a matrix of the simulated genotypes, (2) \code{tot_read_mat} - a matrix of the simulated number of total reads, (3) \code{ref_read_mat} - a matrix of the simulated number of reference reads.
@@ -24,6 +24,6 @@ A list of 3 matrices: (1) \code{genos} - a matrix of the simulated genotypes, (2
 Simulates genotypes and read counts under the model of Blischak et al. (2015).
 }
 \references{
-Blischak, P. D., L. S. Kubatko and A. D. Wolfe. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}. bioRxiv doi:####.
+Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}. bioRxiv, \strong{doi}:####.
 }
 

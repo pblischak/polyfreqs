@@ -2,7 +2,7 @@
 % Please edit documentation in R/polyfreqs.R
 \name{polyfreqs}
 \alias{polyfreqs}
-\title{Bayesian estimation of allele frequencies in polyploids}
+\title{Bayesian estimation of allele frequencies in autopolyploids}
 \usage{
 polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
   genotypes = FALSE, col_header = "", outfile = "polyfreqs-mcmc.out")
@@ -12,7 +12,7 @@ polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
 
 \item{rM}{Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.}
 
-\item{ploidy}{The ploidy level of the sampled individuals (must be >= 2).}
+\item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 
 \item{iter}{The number of MCMC generations to run (default=50,000).}
 

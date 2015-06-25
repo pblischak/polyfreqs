@@ -2,14 +2,14 @@
 #'
 #' @description Simulates genotypes and read counts under the model of Blischak et al. (2015).
 #' @param pVec A vector of allele frequencies strung together using the concatenate function.
-#' @param N_ind The number of individuals to simulate
-#' @param coverage The average number of sequenced simulated per individual per locus (Poisson distributed)
+#' @param N_ind The number of individuals to simulate.
+#' @param coverage The average number of sequences simulated per individual per locus (Poisson distributed).
 #' @param ploidy The ploidy level of individuals in the population.
-#' @param error The probability of a sequencing error.
+#' @param error The level of sequencing error. A fixed constant.
 #'
 #' @return A list of 3 matrices: (1) \code{genos} - a matrix of the simulated genotypes, (2) \code{tot_read_mat} - a matrix of the simulated number of total reads, (3) \code{ref_read_mat} - a matrix of the simulated number of reference reads.
 #'
-#' @references Blischak, P. D., L. S. Kubatko and A. D. Wolfe. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}. bioRxiv doi:####.
+#' @references Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}. bioRxiv, \strong{doi}:####.
 #' @useDynLib polyfreqs
 #' @importFrom Rcpp sourceCpp
 

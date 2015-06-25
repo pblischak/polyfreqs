@@ -2,20 +2,20 @@
 % Please edit documentation in R/polyfreqs_pps.R
 \name{polyfreqs_pps}
 \alias{polyfreqs_pps}
-\title{Posterior predictive model checks for the model of inheritance}
+\title{Posterior predictive model checks for polysomic inheritance}
 \usage{
 polyfreqs_pps(p_post, tM, rM, ploidy, error)
 }
 \arguments{
 \item{p_post}{A matrix containing the posterior samples from a \code{polyfreqs} run.}
 
-\item{tM}{Total reads matrix.}
+\item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
 
-\item{rM}{Reference reads matrix.}
+\item{rM}{Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.}
 
 \item{ploidy}{Ploidy level of individuals in the population.}
 
-\item{error}{Probability of a sequencing error.}
+\item{error}{The level of sequencing error. A fixed constant.}
 }
 \description{
 Uses the posterior distribution of allele frequences from a \code{polyfreqs} run to test model fit using posterior predictive simulation.
