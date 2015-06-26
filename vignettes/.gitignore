@@ -1,0 +1,5 @@
+*~
+*.out
+*.html
+.DS_Store
+.Rhistory

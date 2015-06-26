@@ -2,18 +2,24 @@
 title: "polyfreqs: estimating allele frequencies in populations of autopolyploids"
 author: "Paul Blischak"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+    number_sections: true
 vignette: >
   %\VignetteIndexEntry{An introduction to polyfreqs}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data. The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes: $P(\,p,G\,|\,R,\epsilon)$.
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: [Blischak *et al*.](http://www.biorxiv.org/)
 
-## Dependencies
+--------
 
-**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used). Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions. 
+# Dependencies
+
+**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which usually requires the installation of additional software (depending on the operating system being used). Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions and the r-base-dev package.  Looking at the requirements for **Rcpp** is a good place to start, too.
 
 **polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/web/packages/Rcpp/index.html) and [**RcppArmadillo**](http://cran.r-project.org/web/packages/RcppArmadillo/index.html). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
 
@@ -24,104 +30,143 @@ install.packages("RcppArmadillo")
 
 Note that **Rcpp** and **RcppArmadillo** also require the compilation of C++ code so make sure that the necessary compilers are installed appropriately for your OS.
 
-## Installation
+--------
+
+# Installation
 
 Installing **polyfreqs** can be done using the [**devtools**](http://cran.r-project.org/web/packages/devtools/index.html) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
 
 ```
 devtools::install_github("pblischak/polyfreqs")
 ```
-## Getting started
 
-### 1. Data simulation
+--------
 
-We will start by analyzing a dataset of simulated read counts for 30 individuals at 100 loci. We will simulate the total number of reads as a Poisson random variable with mean $\lambda=15$ reads per locus per individual.
+# Getting started
+
+## Data simulation
+
+We will start by analyzing a data set of simulated read counts for 30 individuals at 5 loci (for the sake of speed---feel free to simulate more loci if you want). We will simulate the total number of reads as a Poisson random variable with mean $\lambda=15$ reads per locus per individual. After loading the **polyfreqs** package using `r library(polyfreqs)` we can simulate data using the following code:
 
 ```{r}
 # Simulation setup. Feel free to mess around with these values.
-n_ind<-30
-n_loci<-100
-lambda<-15
+n_ind <- 30
+n_loci <- 5
+lambda <- 15
+error <- 0.01
+allele_freqs <- runif(n_loci, 0.1, 0.9)
+ploidy <- 4
 
-# Simulate the total read counts from a Poisson distribution
-t_reads<-matrix(rpois(n_ind*n_loci,lambda),n_ind,n_loci)
-
-# Add row names and column names
-rownames(t_reads)<-paste("ind",1:n_ind,sep="")
-colnames(t_reads)<-paste("loc",1:n_loci,sep="")
-
-# Check out the some of the matrix
-t_reads[1:5,1:20]
+dat <- sim_reads(allele_freqs, n_ind, lambda, ploidy, error)
 ```
 
-Next we'll simulate the number of reads containing the reference allele by first simulating genotypes from a population allele frequency for each locus. Let's consider a set of 5 possible allele frequencies: 0.025, 0.1, 0.25, 0.4 and 0.5. We'll randomly select the allele frequency for each locus from this pool and then use them to simulate genotypes.
+The `sim_reads` function returns the genotype, total reads and reference reads matrices. We can check out their names and look at what the matrices contain before we move forward and run them through **polyfreqs**.
 
 ```{r}
-# Sample allele frequencies for 100 loci from the 5 possible frequencies.
-p_freqs<-sample(c(0.025,0.1,0.25,0.4,0.5),100,replace=T)
-p_freqs[1:20]
-ploidy<-4
-error<-0.01
-
-# Simulate genotypes from a binomial distribution
-genos<-apply(as.matrix(p_freqs),1, function(x) rbinom(n_ind,ploidy,x))
-
-# Check out a bit of the genotype matrix
-genos[1:5,1:20]
-
-r_reads<-matrix(NA,n_ind,n_loci)
-
-for(j in 1:n_loci){
-  for(i in 1:n_ind){
-    if(genos[i,j]==0){
-      r_reads[i,j]<-rbinom(1,t_reads[i,j],error)
-    } else if(genos[i,j]==ploidy){
-      r_reads[i,j]<-rbinom(1,t_reads[i,j],1-error)
-    } else {
-      r_reads[i,j]<-rbinom(1,t_reads[i,j],genos[i,j]/ploidy)
-    }
-  }
-}
-
-r_reads[1:5,1:10]
+names(dat)
+dat$genos[1:2,1:5]
+dat$tot_read_mat[1:2,1:5]
+dat$ref_read_mat[1:2,1:5]
 ```
 
-### 2. Running polyfreqs
+## Running **polyfreqs**
 
-With our two data matrices in hand, `t_reads` and `r_reads`, we are ready to run **polyfreqs**. We'll first use the default settings and then we will rerun things by specifying different values for some of the parameters. First we'll attach the library: `r library(polyfreqs)`.
+With our two data matrices in hand, `dat$tot_read_mat` and `dat$ref_read_mat`, we are ready to run **polyfreqs**. We'll first use the default settings and then we will rerun things by specifying different values for some of the parameters.
 
-```{r,eval=FALSE}
+```{r, eval=FALSE}
 # Default run. At a minimum the function uses the total reads matrix, 
 # the reference reads matrix and the ploidy level. This should only take a couple
 # of minutes.
 
-polyfreqs(t_reads,r_reads,ploidy=4)
+polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4)
 ```
 
-Next we'll run the analysis (MCMC) a little but longer.
+Next we'll run the MCMC analysis a little but longer. Let's do 100,000 generations.
 
 ```{r}
 itr<-100000
-thn<-500
+thn<-100
 ofile<-"polyfreqs_100k-mcmc.out"
-
-#polyfreqs(t_reads,r_reads,ploidy=4,iter=itr,thin=thn,outfile=ofile)
 ```
 
-### 3. MCMC diagnostics using the coda package
+```{r}
+polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4,iter=itr,thin=thn,outfile=ofile)
+```
 
-If you don't have the **coda** package installed then you can install it using `install.packages("coda")`.
+## MCMC diagnostics using the **coda** package
 
-```{r, fig.width=7}
+If you don't have the **coda** package installed then you can install it using `install.packages("coda")`. The code below will read in the output from **polyfreqs**, convert it to the correct object class for using **coda** (class `mcmc`), check that the effective sample sizes (ESS) are greater than 200 (or any other cut-off that you want---just substitute another number) and then prints the names of any loci that have ESS values less than 200. We'll use a burn-in of 25%, so that means we'll only use sample 251 through 1000.
+
+```{r, warning=FALSE, message=FALSE}
 library(coda)
+
+# Read in the MCMC output as a table.
 p_table<-read.table("polyfreqs_100k-mcmc.out",header=T,row.names=1)
-p_post<-mcmc(p_table,start=thn,end=itr,thin=thn)
+
+# Convert the table to an `mcmc` object.
+p_post<-mcmc(p_table[251:1000,])
 
 # check that effective sample sizes are greater than 200
 sum(effectiveSize(p_post) < 200)
 
 # If any are less than 200, we can see which ones they are
 colnames(p_post[,effectiveSize(p_post) < 200])
-
-plot(p_post[,4])
 ```
+
+By default **coda** will produce a trace plot and a density plot for any individual allele frequency parameter (which is just a column in the `p_post` object) using the regular `plot` command.
+
+```{r, fig.width=7}
+plot(p_post[,1])
+```
+
+All trace plots can be examined successively as well using the `traceplots` command. The following code will allow you to flip through the trace plots for all allele frequency parameters by pressing **Enter** (we only have 5 here but you may have more if you simulated more loci).
+
+```{r, eval=FALSE}
+par(ask=T)
+traceplots(p_post)
+
+# Remember to reset the `ask` plotting parameter to FALSE.
+par(ask=F)
+```
+
+## Checking model adequacy
+
+Assessing model adequacy is an important part of any analysis and is easy to do for a **polyfreqs** run. The main probability distribution used is the Binomial, so generating new samples is straightforward. If you don't already have the output from the **polyfreqs** run read in from the previous step, make sure that you start by reading it in as a table. Next, we'll run the `polyfreqs_pps()` function using our total reads (`dat$tot_read_mat`) and reference reads (`dat$ref_read_mat`) data. We'll also use a burn-in of 25% again.
+
+```{r, fig.width=7}
+# Read in the table using the code below if you haven't already done so.
+# p_table <- read.table("polyfreqs_100k-mcmc.out", header=T, row.names=1)
+
+pps <- polyfreqs_pps(as.matrix(p_table[251:1000,]), 
+                     dat$tot_read_mat, dat$ref_read_mat, ploidy, error)
+names(pps)
+
+plot(density(pps$ratio_diff[,1]), main="PP ratio distribution")
+abline(v=0)
+```
+
+__*A biological side note*__
+
+Polyploids are notoriously difficult to work with because of how their chromosomes are inherited. The model in **polyfreqs** assumes that all loci undergo polysomic inheritance, meaning that all alleles at a each locus are freely exchangeable among individuals in a population and thus are equally likely to be passed on to the next generation. Another way to think about this is that the model basically assumes that genotypes are drawn from a single allele pool per locus. If this isn't the case, then it would nice to know that. Doing posterior predictive simulations based on the output from a **polyfreqs** analysis is a nice way of testing the adequacy of a model of polysomic inheritance on a per locus basis.
+
+## Parallelization
+
+The model for allele frequencies that is implemented in **polyfreqs** makes the assumption that loci are independent. Because of this, we can split up the data matrices (total and reference read counts) by columns any way that we want and can run them in parallel on separate nodes of a computing cluster. To facilitate this process, the `polyfreqs` function provides a function for adding a run specific column tag when printing the MCMC samples: `col_header`. For example, if you had 100,000 loci that needed to be analyzed and also had access to a computing cluster where you could submit jobs to 100 nodes, then it would be to your advantage to run 100 analyzes of 1,000 loci at one time instead of running all 100,000 loci in a single analysis.
+
+The way that the `polyfreqs` function does this is by allowing you to specify a string that is associated with each run after you split up the matrices. The typical header for columns printed by **polyfreqs** is 'p\_\_loc1', 'p\_\_loc2', etc. So if you have split your original full data set into 10 smaller ones, you can run each one with a unique column header tag so that when they are all brought back together there isn't any confusion with column names. The simplest way to add the column tags would be to use terms like 'run1', 'run2', ..., but they can be anything that you want.
+
+```{r, eval=FALSE}
+# Example of running `polyfreqs` with a 10,000 locus matrix that is split in half
+# and uses the `col_header` parameter to distinguish between runs.
+
+polyfreqs(dat$tot_read_mat[,1:5000], dat$ref_read_mat[,1:5000],col_header="run1")
+polyfreqs(dat$tot_read_mat[,5001:10000], dat$ref_read_mat[,5001:10000],col_header="run2")
+```
+
+--------
+
+**_References_**
+
+- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *In review*. bioRxiv.
+
+- Buerkle CA and Gompert Z. 2013. Population genomics based on low coverage sequencing: how low should we go? *Molecular Ecology*, **22**, 3028--3035.
