@@ -35,4 +35,4 @@ devtools::install_github("pblischak/polyfreqs")
 ### Documentation
 
 Example code and tutorials for running **polyfreqs** can be found in the <a href="https://github.com/pblischak/polyfreqs/wiki" target="_blank">wiki</a>. 
-For more details on the model underlying **polyfreqs** please see the associated manuscript on bioRxiv: <a href="https://wolfelab.wordpress.com" target="_blank">Blischak <em>et al</em>. 2015</a>.
+For more details on the model underlying **polyfreqs** please see the associated preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a>

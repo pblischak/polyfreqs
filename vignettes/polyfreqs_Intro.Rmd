@@ -13,7 +13,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: <a href="http://www.biorxiv.org/" target="_blank">Blischak <em>et al</em>.</a>
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a>
 
 --------
 
@@ -167,6 +167,6 @@ polyfreqs(dat$tot_read_mat[,5001:10000], dat$ref_read_mat[,5001:10000],col_heade
 
 **_References_**
 
-- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *In review*.
+- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *Submitted*. bioRxiv, **doi**: http://dx.doi.org/10.1101/021907.
 
 - Buerkle CA and Gompert Z. 2013. Population genomics based on low coverage sequencing: how low should we go? *Molecular Ecology*, **22**, 3028--3035.
