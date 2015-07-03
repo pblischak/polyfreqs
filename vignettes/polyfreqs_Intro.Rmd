@@ -119,11 +119,11 @@ By default **coda** will produce a trace plot and a density plot for any individ
 plot(p_post[,1])
 ```
 
-All trace plots can be examined successively as well using the `traceplots` command. The following code will allow you to flip through the trace plots for all allele frequency parameters by pressing **Enter** (we only have 5 here but you may have more if you simulated more loci).
+All trace plots can be examined successively as well using the `traceplot` command. The following code will allow you to flip through the trace plots for all allele frequency parameters by pressing **Enter** (we only have 5 here but you may have more if you simulated more loci).
 
 ```{r, eval=FALSE}
 par(ask=T)
-traceplots(p_post)
+traceplot(p_post)
 
 # Remember to reset the `ask` plotting parameter to FALSE.
 par(ask=F)
