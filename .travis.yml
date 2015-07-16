@@ -2,4 +2,4 @@ language: r
 sudo: required
 
 r_packages:
-	-coda
+ - coda
