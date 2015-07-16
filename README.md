@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=master)](https://travis-ci.org/pblischak/polyfreqs)
+
 # **polyfreqs**
 
 ## Estimating allele frequencies in populations of autopolyploids
