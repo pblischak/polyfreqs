@@ -3,7 +3,6 @@
 #' @description Calculates the MAP estimate of the genotypes for autopolyploid individuals.
 #' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
 #' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "./genotypes/").
-#' @param ploidy The ploidy level of individuals in the population (must be >= 2).
 #' @return A matrix containing the maximum \emph{a posteriori} estimates for all individuals at each locus. The MAP estimate of the genotype is simply the posterior mode.
 
 #' @export

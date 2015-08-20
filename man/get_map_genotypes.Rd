@@ -10,8 +10,6 @@ get_map_genotypes(geno_dir = "./genotypes/", tM)
 \item{geno_dir}{File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "./genotypes/").}
 
 \item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
-
-\item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 }
 \value{
 A matrix containing the maximum \emph{a posteriori} estimates for all individuals at each locus. The MAP estimate of the genotype is simply the posterior mode.
