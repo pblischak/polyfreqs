@@ -4,10 +4,12 @@
 \alias{point_Hexp}
 \title{Calculate expected heterozygosity from point estimates of allele frequencies}
 \usage{
-point_Hexp(freqs)
+point_Hexp(freqs, ploidy)
 }
 \arguments{
 \item{freqs}{A vector of estimated allele frequencies returned from the function \code{\link{simple_freqs}}.}
+
+\item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 }
 \value{
 A list with two items: the overall expected heterozygosity across loci (\code{Hexp}) and a vector with the per locus estimates of expected heterozygosity (\code{per_locus_Hexp}).

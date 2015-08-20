@@ -4,10 +4,12 @@
 \alias{posterior_Hexp}
 \title{Calculate posterior distribution of expected heterozygosity from posterior samples of allele frequencies}
 \usage{
-posterior_Hexp(p_post)
+posterior_Hexp(p_post, ploidy)
 }
 \arguments{
 \item{p_post}{A matrix of posterior samples of allele frequencies returned by \code{\link{polyfreqs}}.}
+
+\item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 }
 \value{
 A list with two items: the posterior distribution for the overall expected heterozygosity across loci (\code{Hexp_post}) and a matrix with the per locus posterior samples of expected heterozygosity (\code{per_locus_Hexp_post}).

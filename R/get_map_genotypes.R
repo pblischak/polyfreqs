@@ -1,0 +1,32 @@
+#' Maximum \emph{a posteriori} (MAP) estmation of autopolyploid genotypes
+#'
+#' @description Calculates the MAP estimate of the genotypes for autopolyploid individuals.
+#' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
+#' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "./genotypes/").
+#' @param ploidy The ploidy level of individuals in the population (must be >= 2).
+#' @return A matrix containing the maximum \emph{a posteriori} estimates for all individuals at each locus. The MAP estimate of the genotype is simply the posterior mode.
+
+#' @export
+get_map_genotypes <- function(geno_dir="./genotypes/", tM){
+  names <- rownames(tM)
+  nind <- nrow(tM)
+  nloci <- ncol(tM)
+  if(!(length(names)==nind)){
+    stop("The number of names and individuals does not match.")
+  }
+
+  map_genotypes <- matrix(NA, nrow = nind, ncol = nloci)
+
+  Mode <- function(g) {
+    g_unique <- unique(g)
+    g_unique[which.max(tabulate(match(g, g_unique)))]
+  }
+
+  for(i in 1:length(names)){
+    tmp_table <- read.table(paste(geno_dir,names[i],"_g-mcmc.out",sep=""), header=T, row.names=1)
+    tmp_vec <- apply(as.matrix(tmp_table), 2, Mode)
+    map_genotypes[i,] <- tmp_vec
+  }
+
+  return(map_genotypes)
+}
