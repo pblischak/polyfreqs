@@ -1,8 +1,8 @@
 #' Posterior predictive model checks for polysomic inheritance
 #'
-#' @description Uses the posterior distribution of allele frequences from a \code{polyfreqs} run to test model fit using posterior predictive simulation.
+#' @description Uses the posterior distribution of allele frequences from a \code{\link{polyfreqs}} run to test model fit using posterior predictive simulation.
 #'
-#' @param p_post A matrix containing the posterior samples from a \code{polyfreqs} run.
+#' @param p_post A matrix containing the posterior samples from a \code{\link{polyfreqs}} run.
 #' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
 #' @param rM Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.
 #' @param ploidy Ploidy level of individuals in the population.

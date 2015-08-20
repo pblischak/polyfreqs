@@ -21,7 +21,7 @@
 #' @import RcppArmadillo
 
 #' @export
-polyfreqs<- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotypes=FALSE, col_header="", outfile="polyfreqs-mcmc.out"){
+polyfreqs <- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotypes=FALSE, col_header="", outfile="polyfreqs-mcmc.out"){
 
   # Check that input matrices are valid.
   stopifnot(is.matrix(tM))

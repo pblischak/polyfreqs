@@ -19,5 +19,11 @@ sim_reads <- function(pVec, N_ind, coverage, ploidy, error){
   tot_read_mat <- matrix(rpois(N_ind*length(pVec), coverage),nrow=N_ind, ncol=length(pVec))
   ref_read_mat <- sim_ref_reads(tot_read_mat, genos, ploidy, error)
 
+  rownames(tot_read_mat) <- paste("ind", 1:N_ind, sep="")
+  rownames(ref_read_mat) <- paste("ind", 1:N_ind, sep="")
+
+  colnames(tot_read_mat) <- paste("loc", 1:length(pVec), sep="")
+  colnames(ref_read_mat) <- paste("loc", 1:length(pVec), sep="")
+
   return(list(genos=genos, tot_read_mat=tot_read_mat, ref_read_mat=ref_read_mat))
 }

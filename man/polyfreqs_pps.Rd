@@ -7,7 +7,7 @@
 polyfreqs_pps(p_post, tM, rM, ploidy, error)
 }
 \arguments{
-\item{p_post}{A matrix containing the posterior samples from a \code{polyfreqs} run.}
+\item{p_post}{A matrix containing the posterior samples from a \code{\link{polyfreqs}} run.}
 
 \item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
 
@@ -18,6 +18,6 @@ polyfreqs_pps(p_post, tM, rM, ploidy, error)
 \item{error}{The level of sequencing error. A fixed constant.}
 }
 \description{
-Uses the posterior distribution of allele frequences from a \code{polyfreqs} run to test model fit using posterior predictive simulation.
+Uses the posterior distribution of allele frequences from a \code{\link{polyfreqs}} run to test model fit using posterior predictive simulation.
 }
 
