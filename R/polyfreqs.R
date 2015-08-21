@@ -9,6 +9,7 @@
 #' @param thin Thins the MCMC output by sampling everything \code{thin} generations (default=100).
 #' @param error The level of sequencing error. A fixed constant (default=0.01).
 #' @param genotypes Logical variable indicating whether or not to print the values of the genotypes sampled during the MCMC (default=FALSE).
+#' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "./genotypes/").
 #' @param col_header Optional column header tag for use in running loci in parallel (default="").
 #' @param outfile The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").
 #' @examples
@@ -21,14 +22,14 @@
 #' @import RcppArmadillo
 
 #' @export
-polyfreqs <- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotypes=FALSE, col_header="", outfile="polyfreqs-mcmc.out"){
+polyfreqs <- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotypes=FALSE, geno_dir="./genotypes/", col_header="", outfile="polyfreqs-mcmc.out"){
 
   # Check that input matrices are valid.
   stopifnot(is.matrix(tM))
   stopifnot(is.matrix(rM))
 
   if(genotypes){
-    d.success<-dir.create("./genotypes")
+    d.success<-dir.create(geno_dir)
     if(!d.success){
       stop("Attempt to make genotypes directory failed.")
     }
@@ -50,8 +51,8 @@ polyfreqs <- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotype
 
     rnames<-row.names(tM)
     for(i in 1:nrow(tM)){
-      cat("iter", paste("g_",col_header,"_loc",1:ncol(tM),sep=""),sep="\t", file=paste("./genotypes/",rnames[i],"_g-mcmc.out",sep=""))
-      cat("\n",file=paste("./genotypes/", rnames[i],"_g-mcmc.out",sep=""), append=TRUE)
+      cat("iter", paste("g_",col_header,"_loc",1:ncol(tM),sep=""),sep="\t", file=paste(geno_dir,rnames[i],"_g-mcmc.out",sep=""))
+      cat("\n",file=paste(geno_dir, rnames[i],"_g-mcmc.out",sep=""), append=TRUE)
     }
 
     # Start MCMC
@@ -71,7 +72,7 @@ polyfreqs <- function(tM, rM, ploidy, iter=50000, thin=100, error=0.01, genotype
       if(k %% thin == 0){
         cat(k, pV_init, sep="\t",file=outfile, append=TRUE)
         cat("\n",file=outfile, append=TRUE)
-        print_g(k,gM_init,tM)
+        print_g(k,gM_init,tM,geno_dir)
       }
     }
 
