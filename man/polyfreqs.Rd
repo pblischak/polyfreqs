@@ -5,7 +5,7 @@
 \title{Bayesian estimation of allele frequencies in autopolyploids}
 \usage{
 polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
-  genotypes = FALSE, geno_dir = "./genotypes/", col_header = "",
+  genotypes = FALSE, geno_dir = "genotypes", col_header = "",
   outfile = "polyfreqs-mcmc.out")
 }
 \arguments{
@@ -23,7 +23,7 @@ polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
 
 \item{genotypes}{Logical variable indicating whether or not to print the values of the genotypes sampled during the MCMC (default=FALSE).}
 
-\item{geno_dir}{File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "./genotypes/").}
+\item{geno_dir}{File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").}
 
 \item{col_header}{Optional column header tag for use in running loci in parallel (default="").}
 
