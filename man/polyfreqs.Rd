@@ -4,9 +4,9 @@
 \alias{polyfreqs}
 \title{Bayesian estimation of allele frequencies in autopolyploids}
 \usage{
-polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
-  genotypes = FALSE, geno_dir = "genotypes", col_header = "",
-  outfile = "polyfreqs-mcmc.out")
+polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
+  error = 0.01, genotypes = FALSE, geno_dir = "genotypes",
+  col_header = "", outfile = "polyfreqs-mcmc.out")
 }
 \arguments{
 \item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
@@ -15,9 +15,11 @@ polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
 
 \item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 
-\item{iter}{The number of MCMC generations to run (default=50,000).}
+\item{iter}{The number of MCMC generations to run (default=100,000).}
 
 \item{thin}{Thins the MCMC output by sampling everything \code{thin} generations (default=100).}
+
+\item{burnin}{Percent of the posterior samples to discard as burn-in (default=20).}
 
 \item{error}{The level of sequencing error. A fixed constant (default=0.01).}
 
@@ -28,6 +30,15 @@ polyfreqs(tM, rM, ploidy, iter = 50000, thin = 100, error = 0.01,
 \item{col_header}{Optional column header tag for use in running loci in parallel (default="").}
 
 \item{outfile}{The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").}
+}
+\value{
+Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
+\describe{
+ \item{simple_freqs}{A vector of allele frequencies estimated by the \code{\link{simple_freqs}} function.}
+ \item{posterior_freq_means}{A vector of the posterior mean allele frequency estimated using the specified burn-in.}
+ \item{posterior_freqs}{A matrix of the posterior samples of allele frequencies.}
+ \item{map_genotypes}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
+ }
 }
 \description{
 \code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies in a population of autopolyploids.

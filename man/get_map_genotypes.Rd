@@ -4,12 +4,14 @@
 \alias{get_map_genotypes}
 \title{Maximum \emph{a posteriori} (MAP) estmation of autopolyploid genotypes}
 \usage{
-get_map_genotypes(geno_dir = "genotypes", tM)
+get_map_genotypes(tM, burnin = 20, geno_dir = "genotypes")
 }
 \arguments{
-\item{geno_dir}{File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").}
-
 \item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
+
+\item{burnin}{Percent of the posterior samples to discard as burn-in (default=20).}
+
+\item{geno_dir}{File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").}
 }
 \value{
 A matrix containing the maximum \emph{a posteriori} estimates for all individuals at each locus. The MAP estimate of the genotype is simply the posterior mode.
