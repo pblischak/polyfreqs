@@ -11,6 +11,7 @@ IntegerMatrix sim_ref_reads(IntegerMatrix Tm, IntegerMatrix Gn, SEXP pldy, SEXP 
   int ploidy = as<int>(pldy);
   double error = as<double>(err);
   double geno_ratio;
+  double geno_ratio_error;
   IntegerMatrix RefMat(Tm.nrow(),Tm.ncol());
 
   for(int i = 0; i < Tm.nrow(); i++){
@@ -25,7 +26,8 @@ IntegerMatrix sim_ref_reads(IntegerMatrix Tm, IntegerMatrix Gn, SEXP pldy, SEXP 
           RefMat(i,j) = as<int>(rbinom(1, Tm(i,j), 1-error));
         }else{
           geno_ratio = (double)Gn(i,j)/(double)ploidy;
-          RefMat(i,j) = as<int>(rbinom(1, Tm(i,j), geno_ratio));
+          geno_ratio_error = geno_ratio*(1-error) + (1-geno_ratio)*error;
+          RefMat(i,j) = as<int>(rbinom(1, Tm(i,j), geno_ratio_error));
         }
       }
     }

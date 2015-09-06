@@ -24,6 +24,7 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
   double error = as<double>(err);
   bool rep = TRUE;
   double ratio;
+  double ratio_w_error;
   IntegerMatrix GnNew(Tm.nrow(),Tm.ncol());
   NumericVector gVec_tmp(ploidy+1);
   NumericVector gVec(ploidy+1);
@@ -46,7 +47,8 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
             gVec_tmp[p] = pow((1-error),Rm(i,j))*pow((error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],ploidy);
           }else{
             ratio = p/(double)ploidy;
-            gVec_tmp[p] = Rf_choose(ploidy,p)*pow(ratio,Rm(i,j))*pow((1-ratio),(Tm(i,j)-Rm(i,j)))*pow(pV[j],p)*pow((1-pV[j]),(ploidy-p));
+            ratio_w_error = ratio*(1-error) + (1-ratio)*error;
+            gVec_tmp[p] = Rf_choose(ploidy,p)*pow(ratio_w_error,Rm(i,j))*pow((1-ratio_w_error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],p)*pow((1-pV[j]),(ploidy-p));
           }
 
         }

@@ -10,16 +10,19 @@
 #' @param burnin Percent of the posterior samples to discard as burn-in (default=20).
 #' @param error The level of sequencing error. A fixed constant (default=0.01).
 #' @param genotypes Logical variable indicating whether or not to print the values of the genotypes sampled during the MCMC (default=FALSE).
+#' @param heterozygosity Logical variable indicating whether or not to calculate the observed heterozygosity during the MCMC (default=FALSE).
 #' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").
 #' @param col_header Optional column header tag for use in running loci in parallel (default="").
 #' @param outfile The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").
 #' @return Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
 #' \describe{
-#'  \item{simple_freqs}{A vector of allele frequencies estimated by the \code{\link{simple_freqs}} function.}
-#'  \item{posterior_freq_means}{A vector of the posterior mean allele frequency estimated using the specified burn-in.}
-#'  \item{posterior_freqs}{A matrix of the posterior samples of allele frequencies.}
-#'  \item{map_genotypes}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
+#'  \item{\code{simple_freqs}}{A vector of allele frequencies estimated by the \code{\link{simple_freqs}} function.}
+#'  \item{\code{posterior_freq_means}}{A vector of the posterior mean allele frequency estimated using the specified burn-in.}
+#'  \item{\code{posterior_freqs}}{A matrix of the posterior samples of allele frequencies.}
+#'  \item{\code{map_genotypes}}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
 #'  }
+#'
+#' @references Blischak PD, LS Kubatko and AD Wolfe. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In review}.
 #'
 #' @examples
 #' data(total_reads)
@@ -31,7 +34,7 @@
 #' @import RcppArmadillo
 
 #' @export
-polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.01, genotypes=FALSE, geno_dir="genotypes", col_header="", outfile="polyfreqs-mcmc.out"){
+polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.01, genotypes=FALSE, heterozygosity=FALSE, geno_dir="genotypes", col_header="", outfile="polyfreqs-mcmc.out"){
 
   # Check that input matrices are valid.
   stopifnot(is.matrix(tM))
@@ -51,9 +54,9 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.
     ## Initialize allele frequency vector from uniform(0,1)
     ## Replace entries in genotype matrix with missing data in
     ## total read and reference read files (tM = 0).
-    missing.data<-(tM==0)
+    missing_data<-(tM==0)
     gM_init<-matrix(sample(0:ploidy,nrow(tM)*ncol(tM),replace=TRUE), nrow(tM), ncol(tM))
-    gM_init[missing.data]=0
+    gM_init[missing_data]<-NA
     pV_init<-runif(ncol(tM))
     pV_mat <- matrix(NA, nrow=iter/thin, ncol=ncol(tM))
 
@@ -66,12 +69,14 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.
     }
 
     # Start MCMC
+    cat("Starting MCMC...\n\n")
     for(k in 1:iter){
 
       # Sample from full conditional on genotypes first.
       # Then reassign the values.
       gM<-sample_g(tM, rM, gM_init, pV_init, ploidy, error)
       gM_init<-gM
+      gM_init[missing_data]<-NA
 
       # Sample from the full conditional on allele frequencies
       # given draw from genotypes.
@@ -80,6 +85,7 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.
 
       # Print every 'thin' generation of the MCMC.
       if(k %% thin == 0){
+        cat("MCMC generation ",k,"\n")
         cat(k, pV_init, sep="\t",file=outfile, append=TRUE)
         index <- k/thin
         pV_mat[index,] <- pV_init
@@ -106,20 +112,22 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.
     ## Initialize allele frequency vector from uniform(0,1)
     ## Replace entries in genotype matrix with missing data in
     ## total read and reference read files (tM = 0).
-    missing.data<-(tM==0)
+    missing_data<-(tM==0)
     gM_init<-matrix(sample(0:ploidy,nrow(tM)*ncol(tM),replace=TRUE), nrow(tM), ncol(tM))
-    gM_init[missing.data]=0
+    gM_init[missing_data]=0
     pV_init<-runif(ncol(tM))
     pV_mat <- matrix(NA, nrow=iter/thin, ncol=ncol(tM))
 
 
     # Start MCMC
+    cat("Starting MCMC...\n\n")
     for(k in 1:iter){
 
       # Sample from full conditional on genotypes first.
       # Then reassign the values.
       gM<-sample_g(tM, rM, gM_init, pV_init, ploidy, error)
       gM_init<-gM
+      gM_init[missing_data]<-NA
 
       # Sample from the full conditional on allele frequencies
       # given draw from genotypes.
@@ -128,6 +136,7 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, error=0.
 
       # Print every 'thin' generation of the MCMC.
       if(k %% thin == 0){
+        cat("MCMC generation ",k,"\n")
         cat(k, pV_init, sep="\t",file=outfile, append=TRUE)
         cat("\n",file=outfile, append=TRUE)
         index <- k/thin
