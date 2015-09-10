@@ -2,10 +2,10 @@
 % Please edit documentation in R/polyfreqs.R
 \name{polyfreqs}
 \alias{polyfreqs}
-\title{Bayesian estimation of allele frequencies in autopolyploids}
+\title{Bayesian population genomics in autopolyploids using high throughput sequencing data}
 \usage{
 polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
-  error = 0.01, genotypes = FALSE, geno_dir = "genotypes",
+  print = 1000, error = 0.01, genotypes = FALSE, geno_dir = "genotypes",
   col_header = "", outfile = "polyfreqs-mcmc.out")
 }
 \arguments{
@@ -21,6 +21,8 @@ polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
 
 \item{burnin}{Percent of the posterior samples to discard as burn-in (default=20).}
 
+\item{print}{Frequency of printing the current MCMC generation to stdout (default=1000).}
+
 \item{error}{The level of sequencing error. A fixed constant (default=0.01).}
 
 \item{genotypes}{Logical variable indicating whether or not to print the values of the genotypes sampled during the MCMC (default=FALSE).}
@@ -34,14 +36,14 @@ polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
 \value{
 Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
 \describe{
- \item{simple_freqs}{A vector of allele frequencies estimated by the \code{\link{simple_freqs}} function.}
- \item{posterior_freq_means}{A vector of the posterior mean allele frequency estimated using the specified burn-in.}
- \item{posterior_freqs}{A matrix of the posterior samples of allele frequencies.}
- \item{map_genotypes}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
+ \item{\code{posterior_freqs}}{A matrix of the posterior samples of allele frequencies.}
+ \item{\code{map_genotypes}}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
+ \item{\code{het_obs}}{Matrix of posterior samples of observed heterozygosity.}
+ \item{\code{het_exp}}{Matrix of posterior samples of expected heterozygosity.}
  }
 }
 \description{
-\code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies in a population of autopolyploids.
+\code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.
 }
 \examples{
 data(total_reads)
@@ -50,5 +52,8 @@ polyfreqs(total_reads,ref_reads,4,iter=100,thin=10)
 }
 \author{
 Paul Blischak
+}
+\references{
+Blischak PD, LS Kubatko and AD Wolfe. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. \emph{In revision}.
 }
 

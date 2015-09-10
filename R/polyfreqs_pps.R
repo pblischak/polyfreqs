@@ -17,7 +17,6 @@ polyfreqs_pps <- function(p_post, tM, rM, ploidy, error){
   sim_ref_read_ratios <- matrix(NA, nrow=nrow(p_post), ncol=ncol(p_post))
   sim_genos <- matrix(NA, nrow=nrow(tM),ncol=ncol(tM))
   sim_ref_read <- matrix(NA, nrow=nrow(tM),ncol=ncol(tM))
-  obs_ref_read_ratio <- rep(NA, ncol(tM))
   obs_ref_read_ratio <- apply(rM/tM, 2, sum)
 
   for(i in 1:nrow(p_post)){

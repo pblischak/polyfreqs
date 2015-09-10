@@ -11,6 +11,7 @@ get_map_genotypes <- function(tM, burnin=20, geno_dir="genotypes"){
   names <- rownames(tM)
   nind <- nrow(tM)
   nloci <- ncol(tM)
+  missing_data<-(tM==0)
   if(!(length(names)==nind)){
     stop("The number of names and individuals does not match.")
   }
@@ -28,5 +29,6 @@ get_map_genotypes <- function(tM, burnin=20, geno_dir="genotypes"){
     map_genotypes[i,] <- tmp_vec
   }
 
+  map_genotypes[missing_data]<-NA
   return(map_genotypes)
 }

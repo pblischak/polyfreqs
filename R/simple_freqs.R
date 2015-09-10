@@ -8,6 +8,8 @@
 
 #' @export
 simple_freqs <- function(tM, rM){
+  missing_data<-(tM==0)
+  tM[missing_data]<-NA
   ratio_mat <- rM/tM
   allele_freqs_hat <- apply(ratio_mat, 2, function(x) mean(na.omit(x)))
 

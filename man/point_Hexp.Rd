@@ -2,19 +2,24 @@
 % Please edit documentation in R/point_Hexp.R
 \name{point_Hexp}
 \alias{point_Hexp}
-\title{Calculate expected heterozygosity from point estimates of allele frequencies}
+\title{Calculates the posterior distribution of expected heterozygosity from posterior samples of allele frequencies}
 \usage{
-point_Hexp(freqs, ploidy)
+point_Hexp(p_samp, genotypes, ploidy)
 }
 \arguments{
-\item{freqs}{A vector of estimated allele frequencies returned from the function \code{\link{simple_freqs}}.}
+\item{p_samp}{A posterior sample of allele frequencies from \code{\link{polyfreqs}}.}
+
+\item{genotypes}{Matrix of genotypes sampled during MCMC.}
 
 \item{ploidy}{The ploidy level of individuals in the population (must be >= 2).}
 }
 \value{
-A list with two items: the overall expected heterozygosity across loci (\code{Hexp}) and a vector with the per locus estimates of expected heterozygosity (\code{per_locus_Hexp}).
+Returns the per locus estimates of expected heterozygosity (\code{per_locus_Hexp})
 }
 \description{
-Uses point estimates of allele frequencies calculated with \code{\link{simple_freqs}} to calculate the per locus and overall expected heterozygosity.
+Estimates a posterior distribution for the expected heterozygosity using the poterior samples of allele frequencies calculated by \code{\link{polyfreqs}}. It is used internally by the \code{\link{polyfreqs}} function.
+}
+\references{
+Hardy, OJ. 2015. Population genetics of autopolyploids under a mixed mating model and the estimation of selfing rate. \emph{Molecular Ecology Resources}, doi: 10.1111/1755-0998.12431.
 }
 

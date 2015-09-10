@@ -46,10 +46,11 @@ devtools::install_github("pblischak/polyfreqs")
 
 ## Data simulation
 
-We will start by analyzing a data set of simulated read counts for 30 individuals at 5 loci (for the sake of speed---feel free to simulate more loci if you want). We will simulate the total number of reads as a Poisson random variable with mean $\lambda=15$ reads per locus per individual. After loading the **polyfreqs** package using `r library(polyfreqs)` we can simulate data using the following code:
+We will start by analyzing a data set of simulated read counts for 30 individuals at 5 loci (for the sake of speed---feel free to simulate more loci if you want). We will simulate the total number of reads as a Poisson random variable with mean $\lambda=15$ reads per locus per individual. After loading the **polyfreqs** package using `library(polyfreqs)` we can simulate data using the following code:
 
 ```{r}
 # Simulation setup. Feel free to mess around with these values.
+library(polyfreqs)
 n_ind <- 30
 n_loci <- 5
 lambda <- 15
@@ -73,12 +74,12 @@ dat$ref_read_mat[1:2,1:5]
 
 With our two data matrices in hand, `dat$tot_read_mat` and `dat$ref_read_mat`, we are ready to run **polyfreqs**. We'll first use the default settings and then we will rerun things by specifying different values for some of the parameters.
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, results='hide'}
 # Default run. At a minimum the function uses the total reads matrix, 
 # the reference reads matrix and the ploidy level. This should only take a couple
 # of minutes.
 
-polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4)
+out1 <- polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4)
 ```
 
 Next we'll run the MCMC analysis a little but longer. Let's do 100,000 generations.
@@ -89,8 +90,8 @@ thn<-100
 ofile<-"polyfreqs_100k-mcmc.out"
 ```
 
-```{r}
-polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4,iter=itr,thin=thn,outfile=ofile)
+```{r, results='hide'}
+out2 <- polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4,iter=itr,thin=thn,outfile=ofile)
 ```
 
 ## MCMC diagnostics using the **coda** package
@@ -170,3 +171,5 @@ polyfreqs(dat$tot_read_mat[,5001:10000], dat$ref_read_mat[,5001:10000],col_heade
 - Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *Submitted*. bioRxiv, **doi**: http://dx.doi.org/10.1101/021907.
 
 - Buerkle CA and Gompert Z. 2013. Population genomics based on low coverage sequencing: how low should we go? *Molecular Ecology*, **22**, 3028--3035.
+
+- Hardy, OJ. 2015. Population genetics of autopolyploids under a mixed mating model and the estimation of selfing rate. *Molecular Ecology Resources*, doi: 10.1111/1755-0998.12431.

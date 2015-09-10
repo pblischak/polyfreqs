@@ -1,20 +1,37 @@
-#' Calculate expected heterozygosity from point estimates of allele frequencies
+#' Calculates the posterior distribution of expected heterozygosity from posterior samples of allele frequencies
 #'
-#' @description Uses point estimates of allele frequencies calculated with \code{\link{simple_freqs}} to calculate the per locus and overall expected heterozygosity.
-#' @param freqs A vector of estimated allele frequencies returned from the function \code{\link{simple_freqs}}.
+#' @description Estimates a posterior distribution for the expected heterozygosity using the poterior samples of allele frequencies calculated by \code{\link{polyfreqs}}. It is used internally by the \code{\link{polyfreqs}} function.
+#' @param p_samp A posterior sample of allele frequencies from \code{\link{polyfreqs}}.
+#' @param genotypes Matrix of genotypes sampled during MCMC.
 #' @param ploidy The ploidy level of individuals in the population (must be >= 2).
-#' @return A list with two items: the overall expected heterozygosity across loci (\code{Hexp}) and a vector with the per locus estimates of expected heterozygosity (\code{per_locus_Hexp}).
+#' @return Returns the per locus estimates of expected heterozygosity (\code{per_locus_Hexp})
+#' @references Hardy, OJ. 2015. Population genetics of autopolyploids under a mixed mating model and the estimation of selfing rate. \emph{Molecular Ecology Resources}, doi: 10.1111/1755-0998.12431.
 
 #' @export
-point_Hexp <- function(freqs, ploidy){
-  allele1_hom <- freqs^ploidy
-  allele2_hom <- (1 - freqs)^ploidy
+point_Hexp <- function(p_samp, genotypes, ploidy){
 
-  per_locus_sum <- allele1_hom + allele2_hom
-  per_locus_Hexp <- 1 - per_locus_sum
+  #Get the number of individuals
+  Nind <- nrow(genotypes)
 
-  overall_sum <- sum(per_locus_sum)
-  Hexp <- 1 - overall_sum/length(freqs)
 
-  return(list(Hexp = Hexp, per_locus_Hexp = per_locus_Hexp))
+  # Get expected probability of drawing 2 alleles that are the same
+  allele1_hom <- p_samp^2
+  allele2_hom <- (1 - p_samp)^2
+
+  per_locus_sum_mat <- allele1_hom + allele2_hom
+
+  # Get the observed heterozygosity correction from Hardy (2015)
+
+  obs_heterozygosity <- function(x, ploidy){
+    tmp <- (na.omit(x) * (ploidy - na.omit(x)))/choose(ploidy,2)
+    return(sum(tmp))
+  }
+
+  het_obs <- apply(genotypes, 2, obs_heterozygosity, ploidy=ploidy)
+  obs_het_sum <- (ploidy-1)/(ploidy*(Nind^2))*het_obs
+
+  # Calculate the per locus expected heterozygosity with the correction for small sample size
+  per_locus_Hexp <- (Nind/(Nind-1))*(1 - per_locus_sum_mat - obs_het_sum)
+
+  return(per_locus_Hexp)
 }
