@@ -6,7 +6,7 @@
 \usage{
 polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
   print = 1000, error = 0.01, genotypes = FALSE, geno_dir = "genotypes",
-  col_header = "", outfile = "polyfreqs-mcmc.out")
+  col_header = "", outfile = "polyfreqs-mcmc.out", quiet = FALSE)
 }
 \arguments{
 \item{tM}{Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.}
@@ -32,6 +32,8 @@ polyfreqs(tM, rM, ploidy, iter = 1e+05, thin = 100, burnin = 20,
 \item{col_header}{Optional column header tag for use in running loci in parallel (default="").}
 
 \item{outfile}{The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").}
+
+\item{quiet}{Suppress the printing of the current MCMC generation to stdout (default=FALSE).}
 }
 \value{
 Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
