@@ -2,9 +2,9 @@
 
 # **polyfreqs**
 
-## Estimating allele frequencies in populations of autopolyploids
+## An R package for Bayesian population genomics in autopolyploids
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in polyploid taxa. 
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. 
 
 
 ### Dependencies

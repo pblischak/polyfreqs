@@ -14,6 +14,7 @@
 #' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").
 #' @param col_header Optional column header tag for use in running loci in parallel (default="").
 #' @param outfile The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").
+#' @param quiet Suppress the printing of the current MCMC generation to stdout (default=FALSE).
 #' @return Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
 #' \describe{
 #'  \item{\code{posterior_freqs}}{A matrix of the posterior samples of allele frequencies.}
@@ -34,7 +35,7 @@
 #' @import RcppArmadillo
 
 #' @export
-polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=1000, error=0.01, genotypes=FALSE, geno_dir="genotypes", col_header="", outfile="polyfreqs-mcmc.out"){
+polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=1000, error=0.01, genotypes=FALSE, geno_dir="genotypes", col_header="", outfile="polyfreqs-mcmc.out", quiet=FALSE){
 
   # Check that input matrices are valid.
   stopifnot(is.matrix(tM))
@@ -71,7 +72,11 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=10
     }
 
     # Start MCMC
+
+    if(!quiet){
     cat("Starting MCMC...\n\n")
+    }
+
     for(k in 1:iter){
 
       # Sample from full conditional on genotypes first.
@@ -96,7 +101,7 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=10
         het_exp[index,] <- point_Hexp(pV_init, gM_init, ploidy)
       }
 
-      if(k %% print == 0){
+      if(k %% print == 0 && !quiet){
         cat("MCMC generation ", k, "\n")
       }
     }
@@ -151,7 +156,7 @@ polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=10
         het_exp[index,] <- point_Hexp(pV_init, gM_init, ploidy)
       }
 
-      if(k %% print == 0){
+      if(k %% print == 0 && !quiet){
         cat("MCMC generation ", k, "\n")
       }
     }
