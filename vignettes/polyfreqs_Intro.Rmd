@@ -1,5 +1,5 @@
 ---
-title: "polyfreqs: estimating allele frequencies in populations of autopolyploids"
+title: "polyfreqs: an R package for Bayesian population genomics in autopolyploids"
 author: "Paul Blischak"
 date: "`r Sys.Date()`"
 output: 
@@ -13,7 +13,7 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a>
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity (observed and expected; Hardy [2015]) in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a>
 
 --------
 
@@ -43,6 +43,31 @@ devtools::install_github("pblischak/polyfreqs")
 --------
 
 # Getting started
+
+## Formatting data
+
+**polyfreqs** takes as input matrices of total and reference read counts and expects that these matrices will have (at a minimum) row names. An optional row of locus names can also be put as the first row. Reading in data from a text file that is in this format is straightforward in R with the `read.table()` function. An example of what the data should look like is below:
+
+```
+loc1  loc2  loc3  loc4  loc5  ... locL
+ind1  23  33  19  22  21  ... 30
+ind2  22  19  18  31  29  ... 34
+.
+.
+.
+indN  21  17  24  30  28  ... 32
+```
+
+Data formatted in this way can then be read in as follows:
+
+```
+total_table <- read.table("total_read.txt", row.names=1, header=T)
+ref_table <- read.table("ref_read.txt", row.names=1, header=T)
+```
+
+If you don't have a row of locus names on the first line, you can simply remove the `header=T` argument from the `read.table()` function.
+
+> **NB**: data run through the `polyfreqs()` function need to be of class "matrix" so make sure you convert the table objects (`total_table` and `ref_table`) using the `as.matrix()` command before running them through **polyfreqs**.
 
 ## Data simulation
 
@@ -168,7 +193,7 @@ polyfreqs(dat$tot_read_mat[,5001:10000], dat$ref_read_mat[,5001:10000],col_heade
 
 **_References_**
 
-- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *Submitted*. bioRxiv, **doi**: http://dx.doi.org/10.1101/021907.
+- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *In revision*. bioRxiv, **doi**: http://dx.doi.org/10.1101/021907.
 
 - Buerkle CA and Gompert Z. 2013. Population genomics based on low coverage sequencing: how low should we go? *Molecular Ecology*, **22**, 3028--3035.
 
