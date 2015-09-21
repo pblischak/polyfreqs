@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=devel)](https://travis-ci.org/pblischak/polyfreqs)
+[![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=master)](https://travis-ci.org/pblischak/polyfreqs)
 
 # **polyfreqs**
 
