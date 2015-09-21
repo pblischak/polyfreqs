@@ -1,3 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .travis.yml
+vignettes/polyfreqs-mcmc.out
+polyfreqs-mcmc.out
+polyfreqs_100k-mcmc.out
