@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>polyfreqs. polyfreqs 0.9.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+Paul Blischak
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Bayesian population genomics in autopolyploids using high throughput sequencing data</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>polyfreqs(tM, rM, ploidy, iter&nbsp;=&nbsp;1e+05, thin&nbsp;=&nbsp;100, burnin&nbsp;=&nbsp;20, print&nbsp;=&nbsp;1000, error&nbsp;=&nbsp;0.01, genotypes&nbsp;=&nbsp;FALSE, geno_dir&nbsp;=&nbsp;"genotypes", col_header&nbsp;=&nbsp;"", outfile&nbsp;=&nbsp;"polyfreqs-mcmc.out", quiet&nbsp;=&nbsp;FALSE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>tM</dt>
+      <dd>Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.</dd>
+      <dt>rM</dt>
+      <dd>Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.</dd>
+      <dt>ploidy</dt>
+      <dd>The ploidy level of individuals in the population (must be >= 2).</dd>
+      <dt>iter</dt>
+      <dd>The number of MCMC generations to run (default=100,000).</dd>
+      <dt>thin</dt>
+      <dd>Thins the MCMC output by sampling everything <code>thin</code> generations (default=100).</dd>
+      <dt>burnin</dt>
+      <dd>Percent of the posterior samples to discard as burn-in (default=20).</dd>
+      <dt>print</dt>
+      <dd>Frequency of printing the current MCMC generation to stdout (default=1000).</dd>
+      <dt>error</dt>
+      <dd>The level of sequencing error. A fixed constant (default=0.01).</dd>
+      <dt>genotypes</dt>
+      <dd>Logical variable indicating whether or not to print the values of the genotypes sampled during the MCMC (default=FALSE).</dd>
+      <dt>geno_dir</dt>
+      <dd>File path to directory containing the posterior samples of genotypes output by <code><a href='polyfreqs.html'>polyfreqs</a></code> (default = "genotypes").</dd>
+      <dt>col_header</dt>
+      <dd>Optional column header tag for use in running loci in parallel (default="").</dd>
+      <dt>outfile</dt>
+      <dd>The name of the ouput file that samples from the posterior distribution of allele frequencies are written to (default="polyfreqs-mcmc.out").</dd>
+      <dt>quiet</dt>
+      <dd>Suppress the printing of the current MCMC generation to stdout (default=FALSE).</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+Returns a list of 3 (4 if <code>genotypes=TRUE</code>) items:
+<dl>
+ <dt><code>posterior_freqs</code></dt><dd>A matrix of the posterior samples of allele frequencies.</dd></p>
+  
+      <p><dt><code>map_genotypes</code></dt><dd>If <code>genotypes=TRUE</code>, then a fourth item will be returned as a matrix containing the maximum <em>a posteriori</em> genotype estimates accounting for burn-in.</dd></p>
+  
+      <p><dt><code>het_obs</code></dt><dd>Matrix of posterior samples of observed heterozygosity.</dd></p>
+  
+      <p><dt><code>het_exp</code></dt><dd>Matrix of posterior samples of expected heterozygosity.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></dl></p>
+  
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>polyfreqs</code> implements a Gibbs sampler to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Blischak PD, LS Kubatko and AD Wolfe. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. <em>In revision</em>.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>polyfreqs</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    
+    <h2>Author</h2>
+    
+Paul Blischak
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

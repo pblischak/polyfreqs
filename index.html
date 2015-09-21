@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Index. polyfreqs 0.9.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Paul Blischak &lt;blischak.4@osu.edu&gt;">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <p><a href="https://travis-ci.org/pblischak/polyfreqs"><img src="https://travis-ci.org/pblischak/polyfreqs.svg?branch=devel" alt="Build Status"/></a></p>
+
+<h1><strong>polyfreqs</strong></h1>
+
+<h2>An R package for Bayesian population genomics in autopolyploids</h2>
+
+<p><strong>polyfreqs</strong> is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. </p>
+
+<h3>Dependencies</h3>
+
+<p><strong>polyfreqs</strong> uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used). 
+Windows users will need to install <a href="http://cran.r-project.org/bin/windows/Rtools/" target="_blank">Rtools</a>. 
+MacOSX users will need to install the Xcode Command Line Tools. 
+Linux users will need an up-to-date version of the GNU C Compiler (gcc) and the r-base-dev package.<br/>
+Looking at the requirements for Rcpp is a good place to start too.</p>
+
+<p><strong>polyfreqs</strong> relies on two other R packages: <a href="http://cran.r-project.org/web/packages/Rcpp/index.html" target="_blank"><strong>Rcpp</strong></a> and <a href="http://cran.r-project.org/web/packages/RcppArmadillo/index.html" target="_blank"><strong>RcppArmadillo</strong></a>. 
+These are both available on CRAN and can be installed in the usual way using <code>install.packages()</code>:</p>
+
+<pre><code class="r">install.packages(&quot;Rcpp&quot;)
+install.packages(&quot;RcppArmadillo&quot;)
+</code></pre>
+
+<p>Note that <strong>Rcpp</strong> and <strong>RcppArmadillo</strong> also require the compilation of C++ code so make sure that the necessary compilers are installed appropriately for your OS.</p>
+
+<h3>Installation</h3>
+
+<p>Installing <strong>polyfreqs</strong> can be done using the <a href="http://cran.r-project.org/web/packages/devtools/index.html" target="_blank"><strong>devtools</strong></a> package and the <code>install_github()</code> command. 
+Install <strong>devtools</strong> using <code>install.packages(&quot;devtools&quot;)</code>. <strong>polyfreqs</strong> can then be installed as follows:</p>
+
+<pre><code class="r">devtools::install_github(&quot;pblischak/polyfreqs&quot;)
+</code></pre>
+
+<h3>Documentation</h3>
+
+<p>Example code and tutorials for running <strong>polyfreqs</strong> can be found in the <a href="https://github.com/pblischak/polyfreqs/wiki" target="_blank">wiki</a>. 
+For more details on the model underlying <strong>polyfreqs</strong> please see the associated preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a></p>
+
+
+    <h2>Help topics</h2>
+
+    <h3></h3>
+    
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="get_map_genotypes.html">get_map_genotypes</a></code><br />Maximum </li>
+            
+      <li>
+        <code><a href="point_Hexp.html">point_Hexp</a></code><br />Calculates the posterior distribution of expected heterozygosity from posterior samples of allele frequencies</li>
+            
+      <li>
+        <code><a href="point_Hobs.html">point_Hobs</a></code><br />Calculate observed heterozygosity from maximum </li>
+            
+      <li>
+        <code><a href="polyfreqs.html">polyfreqs</a></code><br />Bayesian population genomics in autopolyploids using high throughput sequencing data</li>
+            
+      <li>
+        <code><a href="polyfreqs_pps.html">polyfreqs_pps</a></code><br />Posterior predictive model checks for polysomic inheritance</li>
+            
+      <li>
+        <code><a href="ref_reads.html">ref_reads</a></code><br />A dataset of 10 individuals sampled at 2 loci with reference read counts simulated from a binomial distribution with underlying allele frequency 0.4.</li>
+            
+      <li>
+        <code><a href="sim_reads.html">sim_reads</a></code><br />Simulation of sequencing read counts and genotypes</li>
+            
+      <li>
+        <code><a href="simple_freqs.html">simple_freqs</a></code><br />Point estimation of allele frequencies based on read counts</li>
+            
+      <li>
+        <code><a href="total_reads.html">total_reads</a></code><br />A dataset of 10 individuals sampled at 2 loci with 20 reads per individual per locus.</li>
+    
+    </ul>
+  </div>
+  
+  <div class="span3 offset1">
+        
+    <h2>Dependencies</h2>
+    <ul>
+      
+      <li><strong>Imports</strong>: Rcpp, RcppArmadillo</li>
+      <li><strong>Suggests</strong>: knitr, coda</li>
+      
+    </ul>
+    <h2>Authors</h2>
+    <ul>
+    </ul>
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
