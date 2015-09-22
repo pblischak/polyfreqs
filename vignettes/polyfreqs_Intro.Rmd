@@ -175,6 +175,10 @@ effectiveSize(multi_het_exp)
 # Plot histograms to visually compare the estimates
 hist(multi_het_exp, col="blue", main="Heterozygosity", xlab="", ylim=c(0,200))
 hist(multi_het_obs, col="red", add=T)
+legend(x="topright", 
+       c("expected","observed"), 
+       col=c("blue","red"), 
+       fill=c("blue","red"), bty="n")
 
 # Gets means and 95% highest posterior density (HPD) intervals
 list("mean_exp" = mean(multi_het_exp), 
