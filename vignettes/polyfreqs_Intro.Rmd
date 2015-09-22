@@ -116,7 +116,10 @@ ofile<-"polyfreqs_100k-mcmc.out"
 ```
 
 ```{r, results='hide'}
-out2 <- polyfreqs(dat$tot_read_mat, dat$ref_read_mat, ploidy=4,iter=itr,thin=thn,outfile=ofile)
+out2 <- polyfreqs(dat$tot_read_mat, 
+                  dat$ref_read_mat, 
+                  ploidy=4,iter=itr, 
+                  thin=thn, outfile=ofile)
 ```
 
 ## MCMC diagnostics using the **coda** package
@@ -155,6 +158,31 @@ traceplot(p_post)
 par(ask=F)
 ```
 
+## Heterozygosity
+
+We measure heterozygosity on a per locus basis using the unbiased estimators from Hardy (2015). They are returned automatically by the `polyfreqs()` function as `het_obs` and `het_exp`. To get a multi-locus estimate, the mean can be taked across loci and then the posterior distributions of expected and observed heterozygosity can be compared.
+
+```{r, fig.width=6, fig.height=5, fig.align='center'}
+# Take the mean across loci using the apply function.
+# Take 25% burn-in as well
+multi_het_obs <- apply(out2$het_obs[251:1000,],1,mean)
+multi_het_exp <- apply(out2$het_exp[251:1000,],1,mean)
+
+# Check for convergence of the multi-locus estimate
+effectiveSize(multi_het_obs)
+effectiveSize(multi_het_exp)
+
+# Plot histograms to visually compare the estimates
+hist(multi_het_exp, col="blue", main="Heterozygosity", xlab="", ylim=c(0,200))
+hist(multi_het_obs, col="red", add=T)
+
+# Gets means and 95% highest posterior density (HPD) intervals
+list("mean_exp" = mean(multi_het_exp), 
+     "95HPD_exp" = quantile(multi_het_exp, c(0.025, 0.975)), 
+     "mean_obs" = mean(multi_het_obs), 
+     "95HPD_obs" = quantile(multi_het_obs, c(0.025, 0.975)))
+```
+
 ## Checking model adequacy
 
 Assessing model adequacy is an important part of any analysis and is easy to do for a **polyfreqs** run. The main probability distribution use is the Binomial, so generating new samples is straightforward. If you don't already have the output from the **polyfreqs** run read in from the previous step, make sure that you start by reading it in as a table. Next, we'll run the `polyfreqs_pps()` function using our total reads (`dat$tot_read_mat`) and reference reads (`dat$ref_read_mat`) data. We'll also use a burn-in of 25% again.
@@ -164,7 +192,10 @@ Assessing model adequacy is an important part of any analysis and is easy to do 
 # p_table <- read.table("polyfreqs_100k-mcmc.out", header=T, row.names=1)
 
 pps <- polyfreqs_pps(as.matrix(p_table[251:1000,]), 
-                     dat$tot_read_mat, dat$ref_read_mat, ploidy, error)
+                     dat$tot_read_mat, 
+                     dat$ref_read_mat, 
+                     ploidy, error)
+
 names(pps)
 
 plot(density(pps$ratio_diff[,1]), main="PP ratio distribution")
@@ -185,8 +216,13 @@ The way that the `polyfreqs` function does this is by allowing you to specify a 
 # Example of running `polyfreqs` with a 10,000 locus matrix that is split in half
 # and uses the `col_header` parameter to distinguish between runs.
 
-polyfreqs(dat$tot_read_mat[,1:5000], dat$ref_read_mat[,1:5000],col_header="run1")
-polyfreqs(dat$tot_read_mat[,5001:10000], dat$ref_read_mat[,5001:10000],col_header="run2")
+polyfreqs(dat$tot_read_mat[,1:5000], 
+          dat$ref_read_mat[,1:5000], 
+          col_header="run1")
+
+polyfreqs(dat$tot_read_mat[,5001:10000], 
+          dat$ref_read_mat[,5001:10000], 
+          col_header="run2")
 ```
 
 --------
