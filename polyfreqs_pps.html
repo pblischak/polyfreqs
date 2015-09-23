@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>polyfreqs_pps. polyfreqs 0.9.0</title>
+<title>polyfreqs_pps. polyfreqs 1.0.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <a class="brand" href="#">polyfreqs 1.0.0</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -47,7 +47,7 @@
         
       </header>
       
-      <h1>Posterior predictive model checks for polysomic inheritance</h1>
+      <h1>Posterior predictive model checks for polyfreqs</h1>
 
 <div class="row">
   <div class="span8">
@@ -68,10 +68,41 @@
       <dd>The level of sequencing error. A fixed constant.</dd>
     </dl>
     
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+A list with two items:
+<dl>
+ <dt>ratio_diff</dt><dd>The posterior predictive samples of the difference between the simulated read ratios and the observed read ratio summed across individuals at each locus.</dd></p>
+  
+      <p><dt>locus_fit</dt><dd>A logical vector indicating whether or not each locus passed or failed the posterior predictive model check.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></dl></p>
+  
+    </div>
+
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Uses the posterior distribution of allele frequences from a <code><a href='polyfreqs.html'>polyfreqs</a></code> run to test model fit using posterior predictive simulation.</p>
+      <p>Uses the posterior distribution of allele frequences from a <code><a href='polyfreqs.html'>polyfreqs</a></code> run to test model fit using the posterior predictive model checking procedure described in Blischak <em>et al</em>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The observed read count ratio (r/t) for each locus is summed across individuals and then compared to a distribution of read ratios simulated using the posterior allele frequencies by taking their difference.
+The criterion for passing/failing the posterior predictive check is then made on a per locus basis based on whether or not the distribution of read ratio differences contains 0 in the 95</p>
+  
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Blischak PD, LS Kubatko and AD Wolfe. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. <em>In revision</em>.</p>
   
     </div>
       </div>

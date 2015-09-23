@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>sim_reads. polyfreqs 0.9.0</title>
+<title>sim_reads. polyfreqs 1.0.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <a class="brand" href="#">polyfreqs 1.0.0</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -72,15 +72,34 @@
       <h2>Value</h2>
 
       <p><dl>
-A list of 3 matrices: (1) <code>genos</code> - a matrix of the simulated genotypes, (2) <code>tot_read_mat</code> - a matrix of the simulated number of total reads, (3) <code>ref_read_mat</code> - a matrix of the simulated number of reference reads.
-</dl></p>
+A list of 3 matrices:
+<dl>
+ <dt><code>genos</code></dt><dd>A matrix of the simulated genotypes.</dd></p>
+  
+      <p><dt><code>tot_read_mat</code></dt><dd>A matrix of the simulated number of total reads.</dd></p>
+  
+      <p><dt><code>ref_read_mat</code></dt><dd>A matrix of the simulated number of reference reads.</dd></p>
+  
+      <p></dl></p>
+  
+      <p></dl></p>
   
     </div>
 
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Simulates genotypes and read counts under the model of Blischak et al. (2015).</p>
+      <p>Simulates genotypes and read counts under the model of Blischak <em>et al</em>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Total reads are simulated using a Poisson distribution with mean equal to the <code>coverage</code> set by the user.
+Next, genotypes are simulated for the specified number of individuals using the vector of allele frequencies provided to the function.
+The number of loci simulated is equal to the number of elements supplied by the vector of allele frequencies.
+The number of reference reads is then simulated using Eq. 1 from Blischak <em>et al</em>. using the total reads, genotypes and sequencing error.</p>
   
     </div>
 

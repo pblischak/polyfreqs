@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>polyfreqs. polyfreqs 0.9.0</title>
+<title>polyfreqs. polyfreqs 1.0.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="
 Paul Blischak
@@ -34,7 +34,7 @@ Paul Blischak
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <a class="brand" href="#">polyfreqs 1.0.0</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -49,7 +49,7 @@ Paul Blischak
         
       </header>
       
-      <h1>Bayesian population genomics in autopolyploids using high throughput sequencing data</h1>
+      <h1>Bayesian population genomics in autopolyploids</h1>
 
 <div class="row">
   <div class="span8">
@@ -92,7 +92,7 @@ Paul Blischak
       <p><dl>
 Returns a list of 3 (4 if <code>genotypes=TRUE</code>) items:
 <dl>
- <dt><code>posterior_freqs</code></dt><dd>A matrix of the posterior samples of allele frequencies.</dd></p>
+ <dt><code>posterior_freqs</code></dt><dd>A matrix of the posterior samples of allele frequencies. These are also printed to the file with the name given by the <code>outfile</code> argument.</dd></p>
   
       <p><dt><code>map_genotypes</code></dt><dd>If <code>genotypes=TRUE</code>, then a fourth item will be returned as a matrix containing the maximum <em>a posteriori</em> genotype estimates accounting for burn-in.</dd></p>
   
@@ -109,7 +109,21 @@ Returns a list of 3 (4 if <code>genotypes=TRUE</code>) items:
     <div class="Description">
       <h2>Description</h2>
 
-      <p><code>polyfreqs</code> implements a Gibbs sampler to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.</p>
+      <p><code>polyfreqs</code> implements a Gibbs sampling algorithm to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.
+It is the main function for conducting inference with the <code>polyfreqs</code> package.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Data sets run through <code>polyfreqs</code> must be of class "matrix" with row names representing the names of the individuals sampled.
+The simplest way to get data into R for running an analysis is to format the total read matrix and reference read matrix as tab delimited text files with the first column containing the individual names and one column after that with the read counts for each locus. These data can then be read in using the <code>read.table</code> function with the <code>row.names</code> argument set equal to 1.
+An optional tab delimited list of locus names can be included as the first row and are treated as column headers for each locus (set <code>header=T</code> in the <code>read.table</code> function).
+When running the <code>polyfreqs</code>, there are a number of options that control what the function returns.
+To estimate genotypes and print posterior genotype samples to file, set the <code>genotypes</code> argument to <code>TRUE</code> and select a name for the output directory <code>geno_dir</code> (defaults to "<code>genotypes</code>").
+<code>polyfreqs</code> also prints the current MCMC generation (with a frequency set by the <code>print_freqs</code> argument) to the R console so that users can track run times.
+This print can be turned off by setting <code>quiet=TRUE</code>. More details on using <code>polyfreqs</code> can be found in the introductory vignette.</p>
   
     </div>
 
@@ -119,7 +133,56 @@ Returns a list of 3 (4 if <code>genotypes=TRUE</code>) items:
       <p>Blischak PD, LS Kubatko and AD Wolfe. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. <em>In revision</em>.</p>
   
     </div>
-      </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>data(total_reads)
+data(ref_reads)
+polyfreqs(total_reads,ref_reads,4,iter=100,thin=10)
+</div>
+<div class='output'>Starting MCMC...
+
+</div>
+<div class='output'>$posterior_freqs
+           [,1]      [,2]
+ [1,] 0.3905059 0.4236661
+ [2,] 0.4762795 0.4194708
+ [3,] 0.6663735 0.4693287
+ [4,] 0.5252888 0.4155101
+ [5,] 0.4254997 0.2642039
+ [6,] 0.3952163 0.3830535
+ [7,] 0.4731001 0.3573495
+ [8,] 0.4098106 0.4160133
+ [9,] 0.4497170 0.4514914
+[10,] 0.4588010 0.5026862
+
+$het_obs
+           [,1]      [,2]
+ [1,] 0.6333333 0.6333333
+ [2,] 0.6000000 0.6333333
+ [3,] 0.6166667 0.6166667
+ [4,] 0.6166667 0.6333333
+ [5,] 0.6500000 0.6000000
+ [6,] 0.6333333 0.6166667
+ [7,] 0.6000000 0.6000000
+ [8,] 0.6333333 0.6333333
+ [9,] 0.6166667 0.5833333
+[10,] 0.5833333 0.6166667
+
+$het_exp
+           [,1]      [,2]
+ [1,] 0.4761357 0.4898292
+ [2,] 0.5043052 0.4883668
+ [3,] 0.4426553 0.5020762
+ [4,] 0.5027455 0.4869143
+ [5,] 0.4890549 0.3820004
+ [6,] 0.4783786 0.4737745
+ [7,] 0.5039475 0.4603352
+ [8,] 0.4847019 0.4871028
+ [9,] 0.4985480 0.5017154
+[10,] 0.5031725 0.5041506
+
+</div></pre>
+  </div>
   <div class="span4">
     <!-- <ul>
       <li>polyfreqs</li>

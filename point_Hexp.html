@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-<title>point_Hexp. polyfreqs 0.9.0</title>
+<title>point_Hexp. polyfreqs 1.0.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="">
 
@@ -32,7 +32,7 @@
     <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">polyfreqs 0.9.0</a>
+      <a class="brand" href="#">polyfreqs 1.0.0</a>
       <div class="nav">
         <ul class="nav">
           <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
@@ -47,7 +47,7 @@
         
       </header>
       
-      <h1>Calculates the posterior distribution of expected heterozygosity from posterior samples of allele frequencies</h1>
+      <h1>Estimation of expected heterozygosity</h1>
 
 <div class="row">
   <div class="span8">
@@ -76,7 +76,14 @@ Returns the per locus estimates of expected heterozygosity (<code>per_locus_Hexp
     <div class="Description">
       <h2>Description</h2>
 
-      <p>Estimates a posterior distribution for the expected heterozygosity using the poterior samples of allele frequencies calculated by <code><a href='polyfreqs.html'>polyfreqs</a></code>. It is used internally by the <code><a href='polyfreqs.html'>polyfreqs</a></code> function.</p>
+      <p><em>INTERNAL</em>: Estimates a posterior distribution for the per locus expected heterozygosity using the unbiased estimator of Hardy (2015) and the poterior samples of allele frequencies calculated by <code><a href='polyfreqs.html'>polyfreqs</a></code>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Posterior distributions for the per locus expected heterozygosity are automatically calculated and returned by the <code><a href='polyfreqs.html'>polyfreqs</a></code> function.</p>
   
     </div>
 
