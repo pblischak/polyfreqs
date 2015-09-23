@@ -2,7 +2,7 @@
 % Please edit documentation in R/polyfreqs_pps.R
 \name{polyfreqs_pps}
 \alias{polyfreqs_pps}
-\title{Posterior predictive model checks for \code{polyfreqs}}
+\title{Posterior predictive model checks for polyfreqs}
 \usage{
 polyfreqs_pps(p_post, tM, rM, ploidy, error)
 }

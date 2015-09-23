@@ -1,4 +1,4 @@
-#' Posterior predictive model checks for \code{polyfreqs}
+#' Posterior predictive model checks for polyfreqs
 #'
 #' Uses the posterior distribution of allele frequences from a \code{\link{polyfreqs}} run to test model fit using the posterior predictive model checking procedure described in Blischak \emph{et al}.
 #'
