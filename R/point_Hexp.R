@@ -1,6 +1,9 @@
-#' Calculates the posterior distribution of expected heterozygosity from posterior samples of allele frequencies
+#' Estimation of expected heterozygosity
 #'
-#' @description Estimates a posterior distribution for the expected heterozygosity using the poterior samples of allele frequencies calculated by \code{\link{polyfreqs}}. It is used internally by the \code{\link{polyfreqs}} function.
+#' \emph{INTERNAL}: Estimates a posterior distribution for the per locus expected heterozygosity using the unbiased estimator of Hardy (2015) and the poterior samples of allele frequencies calculated by \code{\link{polyfreqs}}.
+#'
+#' Posterior distributions for the per locus expected heterozygosity are automatically calculated and returned by the \code{\link{polyfreqs}} function.
+#'
 #' @param p_samp A posterior sample of allele frequencies from \code{\link{polyfreqs}}.
 #' @param genotypes Matrix of genotypes sampled during MCMC.
 #' @param ploidy The ploidy level of individuals in the population (must be >= 2).

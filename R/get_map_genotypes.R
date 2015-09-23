@@ -1,6 +1,9 @@
 #' Maximum \emph{a posteriori} (MAP) estmation of autopolyploid genotypes
 #'
-#' @description Calculates the MAP estimate of the genotypes for autopolyploid individuals.
+#' \emph{INTERNAL}: Calculates the MAP estimate of the genotypes for autopolyploid individuals using the posterior mode of the marginal posterior distribtuion of genotypes for each individual at each locus.
+#'
+#' The easiest way to get these estimates is to set the \code{genotypes} argument to \code{TRUE} when running \code{\link{polyfreqs}}.
+#'
 #' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
 #' @param burnin Percent of the posterior samples to discard as burn-in (default=20).
 #' @param geno_dir File path to directory containing the posterior samples of genotypes output by \code{\link{polyfreqs}} (default = "genotypes").

@@ -1,6 +1,9 @@
-#' Calculate observed heterozygosity from maximum \emph{a posteriori} genotype estimates
+#' Estimation of observed heterozygosity
 #'
-#' @description Uses point estimates of genotypes calculated with \code{\link{get_map_genotypes}} to calculate the per locus and overall observed heterozygosity.
+#' \emph{INTERNAL}: Estimates a posterior distribution for the per locus observed heterozygosity using the unbiased estimator of Hardy (2015) and the poterior samples of genotypes calculated by \code{\link{polyfreqs}}.
+#'
+#' Posterior distributions for the per locus observed heterozygosity are automatically calculated and returned by the \code{\link{polyfreqs}} function.
+#'
 #' @param genotypes A matrix of estimated genotypes returned from the function \code{\link{get_map_genotypes}}.
 #' @param ploidy The ploidy level of individuals in the population (must be >= 2).
 #' @return Returns per locus estimates of observed heterozygosity (\code{per_locus_Hobs}).

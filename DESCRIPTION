@@ -1,8 +1,8 @@
 Package: polyfreqs
 Title: An R Package for Bayesian Population Genomics in Autopolyploids
-Version: 0.9.0
-Authors@R: c(person("Paul", "Blischak", , "blischak.4@osu.edu", c("aut", "cre")))
-Description: This package implements a Gibbs sampler to perform Bayesian inference on biallelic SNP frequencies, genotypes and heterozygosity in a population of autopolyploids.
+Version: 1.0.0
+Authors@R: person("Paul", "Blischak", , "blischak.4@osu.edu", c("aut", "cre"))
+Description: This package implements a Gibbs sampling algorithm to perform Bayesian inference on biallelic SNP frequencies, genotypes and heterozygosity (observed and expected) in a population of autopolyploids.
 Depends: R (>= 3.0)
 License: GPL (>=2)
 LazyData: true
@@ -10,3 +10,5 @@ Imports: Rcpp, RcppArmadillo
 LinkingTo: Rcpp, RcppArmadillo
 Suggests: knitr, coda
 VignetteBuilder: knitr
+URL: http://pblischak.github.io/polyfreqs/, https://github.com/pblischak/polyfreqs
+BugReports: https://github.com/pblischak/polyfreqs/issues

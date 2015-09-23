@@ -1,6 +1,16 @@
-#' Bayesian population genomics in autopolyploids using high throughput sequencing data
+#' Bayesian population genomics in autopolyploids
 #'
-#' @description \code{polyfreqs} implements a Gibbs sampler to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.
+#' \code{polyfreqs} implements a Gibbs sampling algorithm to perform Bayesian inference on the allele frequencies (and other quantities) in a population of autopolyploids.
+#' It is the main function for conducting inference with the \code{polyfreqs} package.
+#'
+#' Data sets run through \code{polyfreqs} must be of class "matrix" with row names representing the names of the individuals sampled.
+#' The simplest way to get data into R for running an analysis is to format the total read matrix and reference read matrix as tab delimited text files with the first column containing the individual names and one column after that with the read counts for each locus. These data can then be read in using the \code{read.table} function with the \code{row.names} argument set equal to 1.
+#' An optional tab delimited list of locus names can be included as the first row and are treated as column headers for each locus (set \code{header=T} in the \code{read.table} function).
+#' When running the \code{polyfreqs}, there are a number of options that control what the function returns.
+#' To estimate genotypes and print posterior genotype samples to file, set the \code{genotypes} argument to \code{TRUE} and select a name for the output directory \code{geno_dir} (defaults to "\code{genotypes}").
+#' \code{polyfreqs} also prints the current MCMC generation (with a frequency set by the \code{print_freqs} argument) to the R console so that users can track run times.
+#' This print can be turned off by setting \code{quiet=TRUE}. More details on using \code{polyfreqs} can be found in the introductory vignette.
+#'
 #' @author Paul Blischak
 #' @param tM Total reads matrix: matrix containing the total number of reads mapping to each locus for each individual.
 #' @param rM Reference reads marix: matrix containing the number of reference reads mapping to each locus for each individual.
@@ -17,7 +27,7 @@
 #' @param quiet Suppress the printing of the current MCMC generation to stdout (default=FALSE).
 #' @return Returns a list of 3 (4 if \code{genotypes=TRUE}) items:
 #' \describe{
-#'  \item{\code{posterior_freqs}}{A matrix of the posterior samples of allele frequencies.}
+#'  \item{\code{posterior_freqs}}{A matrix of the posterior samples of allele frequencies. These are also printed to the file with the name given by the \code{outfile} argument.}
 #'  \item{\code{map_genotypes}}{If \code{genotypes=TRUE}, then a fourth item will be returned as a matrix containing the maximum \emph{a posteriori} genotype estimates accounting for burn-in.}
 #'  \item{\code{het_obs}}{Matrix of posterior samples of observed heterozygosity.}
 #'  \item{\code{het_exp}}{Matrix of posterior samples of expected heterozygosity.}
