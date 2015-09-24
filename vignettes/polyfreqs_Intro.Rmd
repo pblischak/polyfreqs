@@ -21,7 +21,7 @@ vignette: >
 
 **polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which usually requires the installation of additional software (depending on the operating system being used). Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions and the r-base-dev package.  Looking at the requirements for **Rcpp** is a good place to start, too.
 
-**polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/web/packages/Rcpp/index.html) and [**RcppArmadillo**](http://cran.r-project.org/web/packages/RcppArmadillo/index.html). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
+**polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/package=Rcpp) and [**RcppArmadillo**](http://cran.r-project.org/package=RcppArmadillo). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
 
 ```
 install.packages("Rcpp")
@@ -34,7 +34,7 @@ Note that **Rcpp** and **RcppArmadillo** also require the compilation of C++ cod
 
 # Installation
 
-Installing **polyfreqs** can be done using the [**devtools**](http://cran.r-project.org/web/packages/devtools/index.html) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
+Installing **polyfreqs** can be done using the [**devtools**](http://cran.r-project.org/package=devtools) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
 
 ```
 devtools::install_github("pblischak/polyfreqs")

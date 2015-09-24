@@ -42,7 +42,8 @@
 #'
 #' @useDynLib polyfreqs
 #' @importFrom Rcpp sourceCpp
-#' @import RcppArmadillo
+#' @importFrom stats na.omit quantile rbinom rpois runif
+#' @importFrom utils read.table
 
 #' @export
 polyfreqs <- function(tM, rM, ploidy, iter=100000, thin=100, burnin=20, print=1000, error=0.01, genotypes=FALSE, geno_dir="genotypes", col_header="", outfile="polyfreqs-mcmc.out", quiet=FALSE){
