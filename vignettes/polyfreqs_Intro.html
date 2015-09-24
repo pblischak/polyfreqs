@@ -10,7 +10,7 @@
 
 <meta name="author" content="Paul Blischak" />
 
-<meta name="date" content="2015-09-23" />
+<meta name="date" content="2015-09-24" />
 
 <title>polyfreqs: an R package for Bayesian population genomics in autopolyploids</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">polyfreqs: an R package for Bayesian population genomics in autopolyploids</h1>
 <h4 class="author"><em>Paul Blischak</em></h4>
-<h4 class="date"><em>2015-09-23</em></h4>
+<h4 class="date"><em>2015-09-24</em></h4>
 </div>
 
 <div id="TOC">
@@ -78,7 +78,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="dependencies" class="section level1">
 <h1><span class="header-section-number">1</span> Dependencies</h1>
 <p><strong>polyfreqs</strong> uses C++ code to implement its Gibbs sampling algorithm which usually requires the installation of additional software (depending on the operating system being used). Windows users will need to install <a href="http://cran.r-project.org/bin/windows/Rtools/">Rtools</a>. MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions and the r-base-dev package. Looking at the requirements for <strong>Rcpp</strong> is a good place to start, too.</p>
-<p><strong>polyfreqs</strong> relies on two other R packages: <a href="http://cran.r-project.org/web/packages/Rcpp/index.html"><strong>Rcpp</strong></a> and <a href="http://cran.r-project.org/web/packages/RcppArmadillo/index.html"><strong>RcppArmadillo</strong></a>. These are both available on CRAN and can be installed in the usual way using <code>install.packages()</code>:</p>
+<p><strong>polyfreqs</strong> relies on two other R packages: <a href="http://cran.r-project.org/package=Rcpp"><strong>Rcpp</strong></a> and <a href="http://cran.r-project.org/package=RcppArmadillo"><strong>RcppArmadillo</strong></a>. These are both available on CRAN and can be installed in the usual way using <code>install.packages()</code>:</p>
 <pre><code>install.packages(&quot;Rcpp&quot;)
 install.packages(&quot;RcppArmadillo&quot;)</code></pre>
 <p>Note that <strong>Rcpp</strong> and <strong>RcppArmadillo</strong> also require the compilation of C++ code so make sure that the necessary compilers are installed appropriately for your OS.</p>
@@ -86,7 +86,7 @@ install.packages(&quot;RcppArmadillo&quot;)</code></pre>
 </div>
 <div id="installation" class="section level1">
 <h1><span class="header-section-number">2</span> Installation</h1>
-<p>Installing <strong>polyfreqs</strong> can be done using the <a href="http://cran.r-project.org/web/packages/devtools/index.html"><strong>devtools</strong></a> package and the <code>install_github()</code> command. Install <strong>devtools</strong> using <code>install.packages(&quot;devtools&quot;)</code>. <strong>polyfreqs</strong> can then be installed as follows:</p>
+<p>Installing <strong>polyfreqs</strong> can be done using the <a href="http://cran.r-project.org/package=devtools"><strong>devtools</strong></a> package and the <code>install_github()</code> command. Install <strong>devtools</strong> using <code>install.packages(&quot;devtools&quot;)</code>. <strong>polyfreqs</strong> can then be installed as follows:</p>
 <pre><code>devtools::install_github(&quot;pblischak/polyfreqs&quot;)</code></pre>
 <hr />
 </div>
