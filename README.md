@@ -45,7 +45,7 @@ devtools::install_github("pblischak/polyfreqs")
 ### Documentation
 
 Example code and tutorials for running **polyfreqs** can be found in the <a href="https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html" target="_blank">vignette</a>. 
-For more details on the model underlying **polyfreqs** please see the associated preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a> The Supplemental Material also has a walk through for analysis a data set collected for autotetraploid potato (*Solanum tuberosum*).
+For more details on the model underlying **polyfreqs** please see the associated paper in *Molecular Ecology Resources*: <a href="http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12493/abstract" target="_blank">Blischak <em>et al</em>.</a> The Supplemental Material also has a walk through for analysis a data set collected for autotetraploid potato (*Solanum tuberosum*).
 
 --------
 
