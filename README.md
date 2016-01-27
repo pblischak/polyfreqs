@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=master)](https://travis-ci.org/pblischak/polyfreqs)
-
+[![](http://www.r-pkg.org/badges/version/polyfreqs)](http://www.r-pkg.org/badges/version/polyfreqs)
+[![CRAN downloads](http://cranlogs.r-pkg.org/badges/polyfreqs)](http://www.r-pkg.org/pkg/polyfreqs)
 # **polyfreqs**
 
 ## An R package for Bayesian population genomics in autopolyploids
@@ -12,8 +13,8 @@
 **polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used).
 Windows users will need to install <a href="http://cran.r-project.org/bin/windows/Rtools/" target="_blank">Rtools</a>.
 MacOSX users will need to install the Xcode Command Line Tools.
-Linux users will need an up-to-date version of the GNU C Compiler (gcc) and the r-base-dev package.  
-Looking at the requirements for Rcpp is a good place to start too.
+Linux users will need an up-to-date version of the GNU Compiler Collection (gcc) and the r-base-dev package.  
+Looking at the requirements for **Rcpp** is a good place to start too.
 
 **polyfreqs** relies on two other R packages: <a href="http://cran.r-project.org/package=Rcpp" target="_blank"><strong>Rcpp</strong></a> and <a href="http://cran.r-project.org/package=RcppArmadillo" target="_blank"><strong>RcppArmadillo</strong></a>.
 These are both available on CRAN and can be installed in the usual way using `install.packages()`:
@@ -44,7 +45,7 @@ devtools::install_github("pblischak/polyfreqs")
 
 ### Documentation
 
-Example code and tutorials for running **polyfreqs** can be found in the <a href="https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html" target="_blank">vignette</a>. 
+Example code and tutorials for running **polyfreqs** can be found in the <a href="https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html" target="_blank">vignette</a>.
 For more details on the model underlying **polyfreqs** please see the associated paper in *Molecular Ecology Resources*: <a href="http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12493/abstract" target="_blank">Blischak <em>et al</em>.</a> The Supplemental Material also has a walk through for analysis a data set collected for autotetraploid potato (*Solanum tuberosum*).
 
 --------
