@@ -5,10 +5,6 @@ ref_read_pmf <- function(Tm, Rm, Gn, pldy, err) {
     .Call('polyfreqs_ref_read_pmf', PACKAGE = 'polyfreqs', Tm, Rm, Gn, pldy, err)
 }
 
-csample_integer <- function(x, size, replace, prob = as.numeric( c())) {
-    .Call('polyfreqs_csample_integer', PACKAGE = 'polyfreqs', x, size, replace, prob)
-}
-
 sample_g <- function(Tm, Rm, Gn, pV, pldy, err) {
     .Call('polyfreqs_sample_g', PACKAGE = 'polyfreqs', Tm, Rm, Gn, pV, pldy, err)
 }

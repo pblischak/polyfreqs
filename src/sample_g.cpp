@@ -1,16 +1,43 @@
-// [[Rcpp::depends(RcppArmadillo)]]
-
-#include <RcppArmadilloExtensions/sample.h>
+#include <Rcpp.h>
 
 using namespace Rcpp;
 
 
-// [[Rcpp::export]]
-IntegerVector csample_integer( IntegerVector x, int size, bool replace,
-NumericVector prob = NumericVector::create()) {
-  RNGScope scope;
-  IntegerVector ret = RcppArmadillo::sample(x, size, replace, prob);
-  return ret;
+int nonunif_int(const Rcpp::IntegerVector &vals, const Rcpp::NumericVector &probs){
+
+  if(vals.size() != probs.size()){
+    throw std::range_error("Vectors are not of the same length.");
+  }
+
+  double prob_sum = sum(probs);
+  Rcpp::NumericVector normd_probs = probs/prob_sum;
+  Rcpp::NumericVector cummulative_probs = Rcpp::cumsum(normd_probs);
+
+  // Get random number between 0 and 1
+  double samp = Rcpp::as<double>(Rcpp::runif(1,0,1));
+
+  int res = -999;
+
+
+  if(samp < cummulative_probs[0]){
+    res = vals[0];
+  } else {
+
+    for(int i = 1; i < vals.size(); i++){
+
+      if(samp >= cummulative_probs[i-1] && samp < cummulative_probs[i]){
+        res = vals[i];
+        break;
+      }
+
+    }
+  }
+
+  if(res == -999){
+    Rcpp::stop("Invalid random integer generated");
+  }
+
+  return res;
 }
 
 
@@ -20,9 +47,7 @@ NumericVector prob = NumericVector::create()) {
 IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, NumericVector pV, SEXP pldy, SEXP err) {
 
   int ploidy = as<int>(pldy);
-  int num_samps = 1;
   double error = as<double>(err);
-  bool rep = TRUE;
   double ratio;
   double ratio_w_error;
   IntegerMatrix GnNew(Tm.nrow(),Tm.ncol());
@@ -35,6 +60,7 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
   }
 
   for(int j = 0; j < Tm.ncol(); j++){
+    checkUserInterrupt();
     for(int i = 0; i< Tm.nrow(); i++){
       // Check for missing data in total read matrix (i.e. entry equal 0)
       if(Tm(i,j)==0){
@@ -60,7 +86,7 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
           gVec[d] = gVec_tmp[d]/gVec_sum;
         }
 
-        GnNew(i,j) = as<int>(csample_integer(gCount,num_samps,rep,gVec));
+        GnNew(i,j) = nonunif_int(gCount, gVec);
       }
     }
   }

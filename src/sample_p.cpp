@@ -9,6 +9,7 @@ NumericVector sample_p (IntegerMatrix Tm, IntegerMatrix Gn, SEXP pldy) {
   NumericVector pVnew(Tm.ncol());
   int ploidy = as<int>(pldy);
   for(int j = 0; j < Tm.ncol(); j++){
+    checkUserInterrupt();
     int g_sum = 0;
     int gmin_sum = 0;
     for(int i = 0; i < Tm.nrow(); i++){
