@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=master)](https://travis-ci.org/pblischak/polyfreqs)
-[![](http://www.r-pkg.org/badges/version/polyfreqs)](http://www.r-pkg.org/badges/version/polyfreqs)
-[![CRAN downloads](http://cranlogs.r-pkg.org/badges/polyfreqs)](http://www.r-pkg.org/pkg/polyfreqs)
+[![](http://www.r-pkg.org/badges/version/polyfreqs)](https://cran.r-project.org/web/packages/polyfreqs/index.html)
+[![CRAN downloads](http://cranlogs.r-pkg.org/badges/polyfreqs)](https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html)
 # **polyfreqs**
 
 ## An R package for Bayesian population genomics in autopolyploids
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data.
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. It should work for diploids as well but I have not tested this.
 
 
 ### Dependencies
@@ -13,18 +13,11 @@
 **polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which will usually require the installation of additional software (depending on the operating system [OS] being used).
 Windows users will need to install <a href="http://cran.r-project.org/bin/windows/Rtools/" target="_blank">Rtools</a>.
 MacOSX users will need to install the Xcode Command Line Tools.
-Linux users will need an up-to-date version of the GNU Compiler Collection (gcc) and the r-base-dev package.  
-Looking at the requirements for **Rcpp** is a good place to start too.
-
-**polyfreqs** relies on two other R packages: <a href="http://cran.r-project.org/package=Rcpp" target="_blank"><strong>Rcpp</strong></a> and <a href="http://cran.r-project.org/package=RcppArmadillo" target="_blank"><strong>RcppArmadillo</strong></a>.
-These are both available on CRAN and can be installed in the usual way using `install.packages()`:
+Linux users will need an up-to-date version of the GNU Compiler Collection (gcc) and the r-base-dev package. **polyfreqs** relies on the R package <a href="http://cran.r-project.org/package=Rcpp" target="_blank"><strong>Rcpp</strong></a> which is a good place to start too for figuring what you will need. Note that **Rcpp** also requires the compilation of C++ code so make sure that the necessary compilers are installed appropriately for your OS. You can install **Rcpp** directly from CRAN in the usual way using the `install.packages()` command:
 
 ```r
 install.packages("Rcpp")
-install.packages("RcppArmadillo")
 ```
-
-Note that **Rcpp** and **RcppArmadillo** also require the compilation of C++ code so make sure that the necessary compilers are installed appropriately for your OS.
 
 ### Installation
 
@@ -46,10 +39,12 @@ devtools::install_github("pblischak/polyfreqs")
 ### Documentation
 
 Example code and tutorials for running **polyfreqs** can be found in the <a href="https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html" target="_blank">vignette</a>.
-For more details on the model underlying **polyfreqs** please see the associated paper in *Molecular Ecology Resources*: <a href="http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12493/abstract" target="_blank">Blischak <em>et al</em>.</a> The Supplemental Material also has a walk through for analysis a data set collected for autotetraploid potato (*Solanum tuberosum*).
+For more details on the model underlying **polyfreqs** please see the associated paper in *Molecular Ecology Resources*: <a href="http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12493/abstract" target="_blank">Blischak <em>et al</em>.</a> The Supplemental Material also has a walk through for analyzing a data set collected for autotetraploid potato (*Solanum tuberosum*).
 
 --------
 
 **Release notes**
+
+ - **v1.0.1** -- Removed dependency on the RcppArmadillo `sample()` function by coding our own version (`nonunif_int()` in the **sample_g.cpp** source file). The Gibbs sampler should run a bit faster now.
 
  - **v1.0.0** -- First release. Now available on CRAN.
