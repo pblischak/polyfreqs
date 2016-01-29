@@ -7,6 +7,7 @@
 
 **polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. It should work for diploids as well but I have not tested this.
 
+> **NEW**: **polyfreqs** now has a Google Groups page. Please feel free to join the group and post any questions that you may have about the software. [[Google Groups link](https://groups.google.com/forum/#!forum/polyfreqs-users)]
 
 ### Dependencies
 
