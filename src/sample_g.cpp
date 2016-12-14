@@ -48,8 +48,7 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
 
   int ploidy = as<int>(pldy);
   double error = as<double>(err);
-  double ratio;
-  double ratio_w_error;
+  double gVec_sum = 0.0, gEpsilon = 0.0;
   IntegerMatrix GnNew(Tm.nrow(),Tm.ncol());
   NumericVector gVec_tmp(ploidy+1);
   NumericVector gVec(ploidy+1);
@@ -66,29 +65,44 @@ IntegerMatrix sample_g(IntegerMatrix Tm, IntegerMatrix Rm, IntegerMatrix Gn, Num
       if(Tm(i,j)==0){
         continue;
       }else{
+        gVec_sum = 0.0;
         for(int p = 0; p <= ploidy; p++){
-          if(p==0){
-            gVec_tmp[p] = pow(error,Rm(i,j))*pow((1-error),(Tm(i,j)-Rm(i,j)))*pow((1-pV[j]),ploidy);
-          }else if(p==ploidy){
-            gVec_tmp[p] = pow((1-error),Rm(i,j))*pow((error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],ploidy);
-          }else{
-            ratio = p/(double)ploidy;
-            ratio_w_error = ratio*(1-error) + (1-ratio)*error;
-            gVec_tmp[p] = Rf_choose(ploidy,p)*pow(ratio_w_error,Rm(i,j))*pow((1-ratio_w_error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],p)*pow((1-pV[j]),(ploidy-p));
-          }
+
+
+          gEpsilon = p / (double) ploidy * (1 - error)
+                   + (1 - p / (double) ploidy) * error;
+
+          gVec_tmp[p] = ::Rf_dbinom(Rm(i,j), Tm(i,j), gEpsilon, 0)
+                      * ::Rf_dbinom(p, ploidy, pV[j], 0);
+
+          gVec_sum += gVec_tmp[p];
+          //if(p==0){
+          //  gVec_tmp[p] = pow(error,Rm(i,j))*pow((1-error),(Tm(i,j)-Rm(i,j)))*pow((1-pV[j]),ploidy);
+          //}else if(p==ploidy){
+          //  gVec_tmp[p] = pow((1-error),Rm(i,j))*pow((error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],ploidy);
+          //}else{
+          //  ratio = p/(double)ploidy;
+          //  ratio_w_error = ratio*(1-error) + (1-ratio)*error;
+          //  gVec_tmp[p] = Rf_choose(ploidy,p)*pow(ratio_w_error,Rm(i,j))*pow((1-ratio_w_error),(Tm(i,j)-Rm(i,j)))*pow(pV[j],p)*pow((1-pV[j]),(ploidy-p));
+          //}
 
         }
 
-        double gVec_sum = 0;
-        gVec_sum = std::accumulate(gVec_tmp.begin(),gVec_tmp.end(),0.0);
+
+        //gVec_sum = std::accumulate(gVec_tmp.begin(),gVec_tmp.end(),0.0);
 
         for(int d = 0; d <= ploidy; d++){
-          gVec[d] = gVec_tmp[d]/gVec_sum;
+          gVec[d] = gVec_tmp[d] / gVec_sum;
+          /*Rcout << d << "\t" << gVec_tmp[d] << "\t"
+                  << gVec[d] << "\t" << gVec_sum << std::endl;*/
         }
 
         GnNew(i,j) = nonunif_int(gCount, gVec);
+
       }
     }
   }
+
   return GnNew;
+
 }
