@@ -1,8 +1,8 @@
 language: r
-sudo: required
+r:
+  - oldrel
+  - release
+  - devel
+cache: packages
 
 warnings_are_errors: true
-
-r_binary_packages:
- - coda
- - rmarkdown
