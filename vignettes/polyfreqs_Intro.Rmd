@@ -2,7 +2,7 @@
 title: "polyfreqs: an R package for Bayesian population genomics in autopolyploids"
 author: "Paul Blischak"
 date: "`r Sys.Date()`"
-output: 
+output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 2
@@ -13,15 +13,15 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity (observed and expected; Hardy [2015]) in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper which is currently in review but can be found as a preprint on bioRxiv: <a href="http://biorxiv.org/content/early/2015/07/02/021907" target="_blank">Blischak <em>et al</em>.</a>
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity (observed and expected; Hardy [2015]) in populations of autopolyploids. It uses a hierarchical Bayesian model to integrate over genotype uncertainty using high throughput sequencing read counts as data (similar to the diploid model of Buerkle and Gompert [2013]). The package implements a Gibbs sampler to draw from the joint posterior distribution of allele frequencies and genotypes. The model is described in our paper in *Molecular Ecology Resources* <a href="http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12493/abstract" target="_blank">Blischak <em>et al</em>.</a>
 
 --------
 
 # Dependencies
 
-**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which usually requires the installation of additional software (depending on the operating system being used). Windows users will need to install [Rtools](http://cran.r-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions and the r-base-dev package.  Looking at the requirements for **Rcpp** is a good place to start, too.
+**polyfreqs** uses C++ code to implement its Gibbs sampling algorithm which usually requires the installation of additional software (depending on the operating system being used). Windows users will need to install [Rtools](https://CRAN.R-project.org/bin/windows/Rtools/). MacOSX users will need to install the Xcode Command Line Tools. Linux users will need an up-to-date version of the GNU C Compiler (gcc), which typically comes installed with most Linux distributions and the r-base-dev package.  Looking at the requirements for **Rcpp** is a good place to start, too.
 
-**polyfreqs** relies on two other R packages: [**Rcpp**](http://cran.r-project.org/package=Rcpp) and [**RcppArmadillo**](http://cran.r-project.org/package=RcppArmadillo). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
+**polyfreqs** relies on two other R packages: [**Rcpp**](https://CRAN.R-project.org/package=Rcpp) and [**RcppArmadillo**](https://CRAN.R-project.org/package=RcppArmadillo). These are both available on CRAN and can be installed in the usual way using `install.packages()`:
 
 ```
 install.packages("Rcpp")
@@ -34,7 +34,7 @@ Note that **Rcpp** and **RcppArmadillo** also require the compilation of C++ cod
 
 # Installation
 
-Installing **polyfreqs** can be done using the [**devtools**](http://cran.r-project.org/package=devtools) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
+Installing **polyfreqs** can be done using the [**devtools**](https://CRAN.R-project.org/package=devtools) package and the `install_github()` command. Install **devtools** using `install.packages("devtools")`. **polyfreqs** can then be installed as follows:
 
 ```
 devtools::install_github("pblischak/polyfreqs")
@@ -100,7 +100,7 @@ dat$ref_read_mat[1:2,1:5]
 With our two data matrices in hand, `dat$tot_read_mat` and `dat$ref_read_mat`, we are ready to run **polyfreqs**. We'll first use the default settings and then we will rerun things by specifying different values for some of the parameters.
 
 ```{r, eval=FALSE, results='hide'}
-# Default run. At a minimum the function uses the total reads matrix, 
+# Default run. At a minimum the function uses the total reads matrix,
 # the reference reads matrix and the ploidy level. This should only take a couple
 # of minutes.
 
@@ -116,9 +116,9 @@ ofile<-"polyfreqs_100k-mcmc.out"
 ```
 
 ```{r, results='hide'}
-out2 <- polyfreqs(dat$tot_read_mat, 
-                  dat$ref_read_mat, 
-                  ploidy=4,iter=itr, 
+out2 <- polyfreqs(dat$tot_read_mat,
+                  dat$ref_read_mat,
+                  ploidy=4,iter=itr,
                   thin=thn, outfile=ofile)
 ```
 
@@ -175,15 +175,15 @@ effectiveSize(multi_het_exp)
 # Plot histograms to visually compare the estimates
 hist(multi_het_exp, col="blue", main="Heterozygosity", xlab="", ylim=c(0,200))
 hist(multi_het_obs, col="red", add=T)
-legend(x="topright", 
-       c("expected","observed"), 
-       col=c("blue","red"), 
+legend(x="topright",
+       c("expected","observed"),
+       col=c("blue","red"),
        fill=c("blue","red"), bty="n")
 
 # Gets means and 95% highest posterior density (HPD) intervals
-list("mean_exp" = mean(multi_het_exp), 
-     "95HPD_exp" = quantile(multi_het_exp, c(0.025, 0.975)), 
-     "mean_obs" = mean(multi_het_obs), 
+list("mean_exp" = mean(multi_het_exp),
+     "95HPD_exp" = quantile(multi_het_exp, c(0.025, 0.975)),
+     "mean_obs" = mean(multi_het_obs),
      "95HPD_obs" = quantile(multi_het_obs, c(0.025, 0.975)))
 ```
 
@@ -195,9 +195,9 @@ Assessing model adequacy is an important part of any analysis and is easy to do 
 # Read in the table using the code below if you haven't already done so.
 # p_table <- read.table("polyfreqs_100k-mcmc.out", header=T, row.names=1)
 
-pps <- polyfreqs_pps(as.matrix(p_table[251:1000,]), 
-                     dat$tot_read_mat, 
-                     dat$ref_read_mat, 
+pps <- polyfreqs_pps(as.matrix(p_table[251:1000,]),
+                     dat$tot_read_mat,
+                     dat$ref_read_mat,
                      ploidy, error)
 
 names(pps)
@@ -220,12 +220,12 @@ The way that the `polyfreqs` function does this is by allowing you to specify a 
 # Example of running `polyfreqs` with a 10,000 locus matrix that is split in half
 # and uses the `col_header` parameter to distinguish between runs.
 
-polyfreqs(dat$tot_read_mat[,1:5000], 
-          dat$ref_read_mat[,1:5000], 
+polyfreqs(dat$tot_read_mat[,1:5000],
+          dat$ref_read_mat[,1:5000],
           col_header="run1")
 
-polyfreqs(dat$tot_read_mat[,5001:10000], 
-          dat$ref_read_mat[,5001:10000], 
+polyfreqs(dat$tot_read_mat[,5001:10000],
+          dat$ref_read_mat[,5001:10000],
           col_header="run2")
 ```
 
@@ -233,7 +233,7 @@ polyfreqs(dat$tot_read_mat[,5001:10000],
 
 **_References_**
 
-- Blischak PD, Kubatko LS, Wolfe AD. 2015. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *In revision*. bioRxiv, **doi**: http://dx.doi.org/10.1101/021907.
+- Blischak PD, Kubatko LS, Wolfe AD. 2016. Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids. *Molecular Ecology Resources* **16**: 742--754.
 
 - Buerkle CA and Gompert Z. 2013. Population genomics based on low coverage sequencing: how low should we go? *Molecular Ecology*, **22**, 3028--3035.
 

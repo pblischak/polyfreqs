@@ -1,0 +1,17 @@
+citHeader("To cite polyfreqs in publications use:")
+
+citEntry(entry = "Article",
+  title        = "Accounting for genotype uncertainty in the estimation of allele frequencies in autopolyploids",
+  author       = personList(as.person("Paul D. Blischak"),
+                   as.person("Laura S. Kubatko"),
+                   as.person("Andrea D. Wolfe")),
+  journal      = "Molecular Ecology Resources",
+  year         = "2016",
+  volume       = "16",
+  pages        = "742--754",
+
+  textVersion  =
+  paste("Blischak PD, Kubatko LS, and Wolfe AD. 2016.",
+        "Accounting for genotype uncertainty in the estimation of allele frequences in autopolyploids.",
+        "Molecular Ecology Resources 16: 742-754.")
+)
