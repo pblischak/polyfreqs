@@ -1,11 +1,14 @@
 [![Build Status](https://travis-ci.org/pblischak/polyfreqs.svg?branch=master)](https://travis-ci.org/pblischak/polyfreqs)
 [![](http://www.r-pkg.org/badges/version/polyfreqs)](https://cran.r-project.org/web/packages/polyfreqs/index.html)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/polyfreqs)](https://cran.r-project.org/web/packages/polyfreqs/vignettes/polyfreqs_Intro.html)
+
 # **polyfreqs**
 
 ## An R package for Bayesian population genomics in autopolyploids
 
-**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. It should work for diploids as well but I have not tested this.
+**polyfreqs** is an R package for the estimation of biallelic SNP frequencies, genotypes and heterozygosity in autopolyploid taxa using high throughput sequencing data. It should work for diploids as well, but does not accomodate data sets of mixed ploidy.
+
+### **polyfreqs** does accept missing data: code them as `0` in the total read count matrix.
 
 > **NEW**: **polyfreqs** now has a Google Groups page. Please feel free to join the group and post any questions that you may have about the software. [[Google Groups link](https://groups.google.com/forum/#!forum/polyfreqs-users)]
 
@@ -45,6 +48,8 @@ For more details on the model underlying **polyfreqs** please see the associated
 --------
 
 **Release notes**
+
+ - **v1.0.2** -- Small patch that updated code for sampling genotypes during the MCMC that was giving underflow errors when total read counts are high (~1000x coverage).
 
  - **v1.0.1** -- Removed dependency on the RcppArmadillo `sample()` function by coding our own version (`nonunif_int()` in the **sample_g.cpp** source file). The Gibbs sampler should run a bit faster now.
 
